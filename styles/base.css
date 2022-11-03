@@ -1,0 +1,16 @@
+@layer base {
+  html {
+    --bg: theme(colors.slate.100);
+    --text-color: theme(colors.slate.700);
+  }
+
+  html[theme-mode="dark"] {
+    --bg: theme(colors.slate.800);
+    --text-color: theme(colors.slate.300);
+  }
+
+  body {
+    background-color: var(--bg);
+    color: var(--text-color);
+  }
+}

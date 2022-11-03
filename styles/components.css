@@ -1,0 +1,13 @@
+@layer components {
+  .my-input {
+    @apply w-full px-4 py-2 transition-all duration-200 ease-in-out bg-transparent border outline-none border-slate-300 rounded-xl focus:border-transparent focus:ring-4 focus:ring-yellow-400 dark:border-slate-600 dark:focus:ring-yellow-600;
+  }
+
+  .my-checkbox {
+    @apply w-5 h-5 text-yellow-500 transition-all duration-200 ease-in-out bg-transparent rounded-md cursor-pointer dark:text-yellow-600 border-slate-400 focus:ring-transparent focus:ring-offset-transparent focus:outline-none dark:border-slate-500;
+  }
+
+  .my-btn {
+    @apply px-3 py-3 mt-4 font-medium text-white transition-all duration-300 ease-in-out bg-yellow-500 cursor-pointer dark:bg-yellow-600 rounded-xl dark:hover:bg-yellow-700 hover:bg-yellow-600 disabled:cursor-progress disabled:dark:bg-yellow-700 disabled:text-black;
+  }
+}
