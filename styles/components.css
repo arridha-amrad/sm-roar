@@ -4,7 +4,7 @@
   }
 
   .my-checkbox {
-    @apply w-5 h-5 text-yellow-500 transition-all duration-200 ease-in-out bg-transparent rounded-md cursor-pointer dark:text-yellow-600 border-slate-400 focus:ring-transparent focus:ring-offset-transparent focus:outline-none dark:border-slate-500;
+    @apply w-5 h-5 border rounded-md appearance-none cursor-pointer dark:bg-slate-500 bg-slate-200 dark:border-none border-slate-300;
   }
 
   .my-btn {

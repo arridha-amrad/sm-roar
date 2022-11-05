@@ -1,11 +1,11 @@
-import useCreatePost from '@src/hooks/post/useCreatePost';
-import ChevronIcon from '@src/icons/ChevronIcon';
-import GlobeIcon from '@src/icons/GlobeIcon';
-import ImageIcon from '@src/icons/ImageIcon';
-import { FormEvent, useMemo, useState } from 'react';
+import useCreatePost from "@src/hooks/post/useCreatePost";
+import ChevronIcon from "@src/icons/ChevronIcon";
+import GlobeIcon from "@src/icons/GlobeIcon";
+import ImageIcon from "@src/icons/ImageIcon";
+import { FormEvent, useMemo, useState } from "react";
 
 const CreatePostForm = () => {
-  const [body, setBody] = useState('');
+  const [body, setBody] = useState("");
 
   const { mutate } = useCreatePost();
 

@@ -1,11 +1,9 @@
-import useGetPosts from '@src/hooks/post/useGetPosts';
-import Post from '../shared/Post';
+import useGetPosts from "@src/hooks/post/useGetPosts";
+import Post from "../shared/Post";
 
 const Posts = () => {
   const { data, isLoading } = useGetPosts();
-  console.log('data : ', data);
-
-  if (isLoading && !data) {
+  if (isLoading) {
     return <p>loading...</p>;
   }
   return (

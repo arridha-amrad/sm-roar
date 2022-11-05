@@ -6,11 +6,13 @@ import Link from "next/link";
 import { FormEvent, useEffect, useRef, useState } from "react";
 import Input from "@src/components/Input";
 import useRegister from "@src/hooks/user/useRegister";
+import Checkbox from "@src/components/shared/Checkbox";
 
 const Register = () => {
   const emailRef = useRef<HTMLInputElement | null>(null);
   const usernameRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
+  const nameRef = useRef<HTMLInputElement | null>(null);
 
   const { isError, isLoading, mutate, error, errorFields } = useRegister();
 
@@ -25,18 +27,20 @@ const Register = () => {
     const username = usernameRef.current?.value;
     const email = emailRef.current?.value;
     const password = passwordRef.current?.value;
+    const name = nameRef.current?.value;
 
-    if (username && email && password) {
+    if (username && email && password && name) {
       mutate({
         email,
         password,
         username,
+        name,
       });
     }
   };
 
   return (
-    <div className="relative flex flex-col items-center justify-center min-h-screen min-w-screen">
+    <div className="relative flex flex-col items-center justify-center min-h-screen select-none min-w-screen">
       <div className="absolute top-4 right-4">
         <ThemeSwitcher />
       </div>
@@ -67,7 +71,13 @@ const Register = () => {
           error={errorFields.find((err) => err.field === "email")?.message}
           ref={emailRef}
           type="text"
-          label="Email"
+          label="Email Address"
+        />
+        <Input
+          error={errorFields.find((err) => err.field === "name")?.message}
+          ref={nameRef}
+          type="text"
+          label="Name"
         />
         <Input
           error={errorFields.find((err) => err.field === "username")?.message}
@@ -82,12 +92,8 @@ const Register = () => {
           type={isShowPassword ? "text" : "password"}
         />
 
-        <div className="flex items-center gap-3 -mt-2">
-          <input
-            onChange={() => setIsShowPassword((val) => !val)}
-            type="checkbox"
-            className="my-checkbox"
-          />
+        <div className="flex items-center gap-3">
+          <Checkbox toggleFunction={() => setIsShowPassword((val) => !val)} />
           <label>Show Password</label>
         </div>
 

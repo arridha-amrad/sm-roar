@@ -9,11 +9,12 @@ export default async function register(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const { email, password, username } = req.body;
+  const { email, password, username, name } = req.body;
   const { errors, valid } = validateRegistration({
     email,
     password,
     username,
+    name,
   });
   if (!valid) {
     return res.status(400).json(errors);
@@ -35,6 +36,7 @@ export default async function register(
         email,
         password: hashedPassword,
         username,
+        name,
       },
     });
 

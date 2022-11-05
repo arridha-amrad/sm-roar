@@ -1,22 +1,19 @@
-import useLogout from '@src/hooks/user/useLogout';
-import useMe, { Me } from '@src/hooks/user/useMe';
-import queryClient from '@src/utils/queryClient';
-import Head from 'next/head';
-import Sidebar from '@src/components/shared/Sidebar';
-import CreatePostForm from '@src/components/shared/CreatePostForm';
-import Posts from '@src/components/home/Posts';
+import useMe from "@src/hooks/user/useMe";
+import Head from "next/head";
+import Sidebar from "@src/components/shared/Sidebar";
+import CreatePostForm from "@src/components/shared/CreatePostForm";
+import Posts from "@src/components/home/Posts";
+import Image from "next/image";
+import Logo from "@src/images/logo.png";
 
 export default function Home() {
-  const { isSuccess } = useLogout();
+  const { isLoading } = useMe();
 
-  const data = queryClient.getQueryData<Me>(['me']);
-
-  const { isLoading, data: user } = useMe(!data && !isSuccess);
-
-  if (isLoading || !user) {
+  if (isLoading) {
     return (
-      <div className="w-screen h-screen m-auto">
-        <p>Loading...</p>
+      <div className="relative flex flex-col items-center justify-center w-screen h-screen ">
+        <Image src={Logo} alt="logo" width={100} height={100} priority />
+        <p className="relative">Loading...</p>
       </div>
     );
   }

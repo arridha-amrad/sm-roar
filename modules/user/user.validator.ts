@@ -3,7 +3,7 @@ import {
   IFieldError,
   IValidatorResult,
   ILoginDTO,
-} from './user.types';
+} from "./user.types";
 
 export const validateRegistration = (data: RegisterDTO): IValidatorResult => {
   const emailRegEx =
@@ -15,15 +15,24 @@ export const validateRegistration = (data: RegisterDTO): IValidatorResult => {
   // Minimum eight characters, at least one uppercase letter, one lowercase letter and one number
   const passwordRegEx = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
 
-  const { email, password, username } = data;
+  const { email, password, username, name } = data;
 
   let errors: IFieldError[] = [];
+  if (name.trim() === "") {
+    errors = [
+      ...errors,
+      {
+        field: "name",
+        message: "name is invalid",
+      },
+    ];
+  }
   if (username.match(usernameRegEx) === null) {
     errors = [
       ...errors,
       {
-        field: 'username',
-        message: 'username is invalid',
+        field: "username",
+        message: "username is invalid",
       },
     ];
   }
@@ -32,8 +41,8 @@ export const validateRegistration = (data: RegisterDTO): IValidatorResult => {
     errors = [
       ...errors,
       {
-        field: 'email',
-        message: 'email is not valid',
+        field: "email",
+        message: "email is not valid",
       },
     ];
   }
@@ -42,9 +51,9 @@ export const validateRegistration = (data: RegisterDTO): IValidatorResult => {
     errors = [
       ...errors,
       {
-        field: 'password',
+        field: "password",
         message:
-          'password requires eight characters, with combination of uppercase, lowercase and number',
+          "password requires eight characters, with combination of uppercase, lowercase and number",
       },
     ];
   }
@@ -57,21 +66,21 @@ export const validateRegistration = (data: RegisterDTO): IValidatorResult => {
 export const validateLogin = (data: ILoginDTO): IValidatorResult => {
   const { identity, password } = data;
   let errors: IFieldError[] = [];
-  if (identity.trim() === '') {
+  if (identity.trim() === "") {
     errors = [
       ...errors,
       {
-        field: 'identity',
-        message: 'please input your username or email',
+        field: "identity",
+        message: "please input your username or email",
       },
     ];
   }
-  if (password.trim() === '') {
+  if (password.trim() === "") {
     errors = [
       ...errors,
       {
-        field: 'password',
-        message: 'password is required',
+        field: "password",
+        message: "password is required",
       },
     ];
   }
