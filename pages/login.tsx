@@ -1,12 +1,11 @@
-import Head from "next/head";
-import Image from "next/image";
-import ThemeSwitcher from "@src/components/shared/ThemeSwitcher";
-import Logo from "@src/images/logo.png";
-import Link from "next/link";
-import { FormEvent, useEffect, useRef, useState } from "react";
-import Input from "@src/components/Input";
-import useLogin from "@src/hooks/user/useLogin";
-import { GetServerSidePropsContext } from "next";
+import Head from 'next/head';
+import Image from 'next/image';
+import ThemeSwitcher from '@src/components/shared/ThemeSwitcher';
+import Logo from '@src/images/logo.png';
+import Link from 'next/link';
+import { FormEvent, useEffect, useRef, useState } from 'react';
+import Input from '@src/components/Input';
+import useLogin from '@src/hooks/user/useLogin';
 
 const Login = () => {
   const identityRef = useRef<HTMLInputElement | null>(null);
@@ -48,10 +47,7 @@ const Login = () => {
         Login to <span className="font-bold text-yellow-500">Roarr</span>
       </h1>
 
-      <form
-        onSubmit={onSubmit}
-        className="flex relative flex-col gap-4 w-[300px]"
-      >
+      <form onSubmit={onSubmit} className="flex relative flex-col gap-4 w-[300px]">
         {isError && (
           <div className="max-w-[300px] w-[300px] absolute -top-7 text-center dark:text-red-400 text-red-500 ">
             {error}
@@ -62,31 +58,23 @@ const Login = () => {
         <Input
           ref={passwordRef}
           label="Password"
-          type={isShowPassword ? "text" : "password"}
+          type={isShowPassword ? 'text' : 'password'}
           otherlabel="forgot password"
           otherlink="/forgotPassword"
         />
 
         <div className="flex items-center gap-3">
-          <input
-            onChange={() => setIsShowPassword((val) => !val)}
-            type="checkbox"
-            className="my-checkbox"
-          />
+          <input onChange={() => setIsShowPassword((val) => !val)} type="checkbox" className="my-checkbox" />
           <label>Show Password</label>
         </div>
-        <button
-          disabled={isLoading}
-          type="submit"
-          className="self-stretch my-btn"
-        >
+        <button disabled={isLoading} type="submit" className="self-stretch my-btn">
           Login
         </button>
       </form>
 
       <div className="mt-6 text-sm">
-        don't have an account ?{" "}
-        <Link className="text-blue-500 dark:text-blue-300" href={"/register"}>
+        don't have an account ?{' '}
+        <Link className="text-blue-500 dark:text-blue-300" href={'/register'}>
           register
         </Link>
       </div>
