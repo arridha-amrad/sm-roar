@@ -1,4 +1,4 @@
-import Sidebar from '@src/components/shared/Sidebar';
+import Sidebar from '@src/components/Sidebar/Sidebar';
 import Head from 'next/head';
 
 const Explorer = () => {

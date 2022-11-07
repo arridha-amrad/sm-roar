@@ -12,12 +12,25 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
     }
     const { userId } = await verifyToken(token.split(' ')[1], 'auth');
     const newPost = await prisma.post.create({
+      include: {
+        Like: true,
+        author: {
+          select: {
+            id: true,
+            imageURL: true,
+            name: true,
+            username: true,
+          },
+        },
+        PostMedia: true,
+      },
       data: {
         body,
         createdAt: new Date(),
         userId: parseInt(userId),
       },
     });
+
     return res.status(201).json({ post: newPost });
   } catch (err) {
     console.log(err);

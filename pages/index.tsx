@@ -1,10 +1,10 @@
-import useMe from "@src/hooks/user/useMe";
-import Head from "next/head";
-import Sidebar from "@src/components/shared/Sidebar";
-import CreatePostForm from "@src/components/shared/CreatePostForm";
-import Posts from "@src/components/home/Posts";
-import Image from "next/image";
-import Logo from "@src/images/logo.png";
+import useMe from '@src/hooks/user/useMe';
+import Head from 'next/head';
+import Sidebar from '@src/components/Sidebar/Sidebar';
+import CreatePostForm from '@src/components/shared/CreatePostForm';
+import Posts from '@src/components/home/Posts';
+import Image from 'next/image';
+import Logo from '@src/images/logo.png';
 
 export default function Home() {
   const { isLoading } = useMe();
