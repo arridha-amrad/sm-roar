@@ -1,4 +1,6 @@
 import { PostData } from "@src/modules/post/post.types";
+import timeSetter from "@src/utils/timeSetter";
+import Link from "next/link";
 import { FC, useMemo } from "react";
 import Avatar from "../Avatar";
 import AnaliticButton from "./AnaliticButton";
@@ -10,39 +12,11 @@ import ShareButton from "./SharedButton";
 
 interface IProps {
   post: PostData;
+  isWithActionButtons: boolean;
 }
 
-const Post: FC<IProps> = ({ post }) => {
-  const time = useMemo(() => {
-    const oneMinuteMilliSeconds = 1000 * 60;
-    const oneHourMilliSeconds = 1000 * 60 * 60;
-    const OneDayInMilliSeconds = 1000 * 60 * 60 * 24;
-
-    const postTime = new Date(post.createdAt).getTime();
-    const currTime = new Date().getTime();
-    const timeDifferentInMilliSeconds = currTime - postTime;
-    if (timeDifferentInMilliSeconds < OneDayInMilliSeconds) {
-      if (timeDifferentInMilliSeconds < oneMinuteMilliSeconds) {
-        const result = Math.ceil(timeDifferentInMilliSeconds / 1000);
-        return `${result.toString()}s`;
-      } else if (
-        timeDifferentInMilliSeconds >= oneMinuteMilliSeconds &&
-        timeDifferentInMilliSeconds < oneHourMilliSeconds
-      ) {
-        const result = Math.ceil(
-          timeDifferentInMilliSeconds / oneMinuteMilliSeconds
-        );
-        return `${result.toString()}m`;
-      } else {
-        const result = Math.ceil(
-          timeDifferentInMilliSeconds / oneHourMilliSeconds
-        );
-        return `${result.toString()}h`;
-      }
-    } else {
-      return Intl.DateTimeFormat("en-US").format(new Date(post.createdAt));
-    }
-  }, []);
+const Post: FC<IProps> = ({ post, isWithActionButtons }) => {
+  const time = timeSetter({ post });
 
   return (
     <div className="flex items-start gap-4 -z-10">
@@ -57,15 +31,28 @@ const Post: FC<IProps> = ({ post }) => {
           </h1>
           <p className="font-light">{post.body}</p>
         </div>
-        <div className="flex items-center justify-between mt-3">
-          <CommentButton />
-          <ReRoarrButton />
-          <LikeButton post={post} />
-          <ShareButton />
-          <AnaliticButton />
-        </div>
+        {isWithActionButtons ? (
+          <div className="flex items-center justify-between mt-3">
+            <CommentButton post={post} />
+            <ReRoarrButton />
+            <LikeButton post={post} />
+            <ShareButton />
+            <AnaliticButton />
+          </div>
+        ) : (
+          <div>
+            <div className="my-4">
+              <p className="text-sm dark:text-slate-600 text-slate-200">
+                Replying to{" "}
+                <Link href="/profile" className="text-blue-500 ">
+                  @{post.author.username}
+                </Link>
+              </p>
+            </div>
+          </div>
+        )}
       </div>
-      <RoarrOptionsButton />
+      {isWithActionButtons && <RoarrOptionsButton />}
     </div>
   );
 };

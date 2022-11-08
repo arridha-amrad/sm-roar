@@ -1,11 +1,15 @@
 import useCreatePost from "@src/hooks/post/useCreatePost";
+import { Me } from "@src/hooks/user/useMe";
 import ChevronIcon from "@src/icons/ChevronIcon";
 import GlobeIcon from "@src/icons/GlobeIcon";
 import ImageIcon from "@src/icons/ImageIcon";
+import queryClient from "@src/utils/queryClient";
 import { FormEvent, useMemo, useState } from "react";
+import Avatar from "../Avatar";
 
 const CreatePostForm = () => {
   const [body, setBody] = useState("");
+  const me = queryClient.getQueryData<Me>(["me"]);
 
   const { mutate } = useCreatePost();
 
@@ -25,7 +29,7 @@ const CreatePostForm = () => {
 
   return (
     <div className="flex gap-4 mt-2 mr-2 h-fit">
-      <div className="w-12 h-12 bg-yellow-500 rounded-full" />
+      <Avatar url={me?.imageURL} />
       <form onSubmit={onSubmit} className="flex flex-col flex-1">
         <AudienceTag />
         <textarea

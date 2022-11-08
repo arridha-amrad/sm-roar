@@ -34,16 +34,28 @@ model Token {
 }
 
 model Post {
-  id        Int         @id @default(autoincrement())
-  body      String
-  author    User        @relation(fields: [userId], references: [id])
-  userId    Int
-  createdAt DateTime
-  updatedAt DateTime    @updatedAt
-  PostMedia PostMedia[]
-  Like      PostLike[]
+  id          Int           @id @default(autoincrement())
+  body        String
+  author      User          @relation(fields: [userId], references: [id])
+  userId      Int
+  createdAt   DateTime
+  updatedAt   DateTime      @updatedAt
+  PostMedia   PostMedia[]
+  Like        PostLike[]
+  PostComment PostReplies[]
 
   @@map("posts")
+}
+
+model PostReplies {
+  id        Int      @id @default(autoincrement())
+  body      String
+  createdAt DateTime
+  updatedAt DateTime @updatedAt
+  post      Post     @relation(fields: [postId], references: [id])
+  postId    Int
+
+  @@map("post_replies")
 }
 
 model PostLike {
