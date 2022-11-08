@@ -1,4 +1,4 @@
-import CommentIcon from '@src/icons/CommentIcon';
+import CommentIcon from "@src/icons/CommentIcon";
 
 const CommentButton = () => {
   return (

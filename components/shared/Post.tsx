@@ -1,12 +1,12 @@
-import { PostData } from '@src/modules/post/post.types';
-import { FC, useMemo } from 'react';
-import Avatar from '../Avatar';
-import AnaliticButton from './AnaliticButton';
-import CommentButton from './CommentButton';
-import LikeButton from './LikeButton';
-import ReRoarrButton from './ReRoarrButton';
-import RoarrOptionsButton from './RoarrOptionsButton';
-import ShareButton from './SharedButton';
+import { PostData } from "@src/modules/post/post.types";
+import { FC, useMemo } from "react";
+import Avatar from "../Avatar";
+import AnaliticButton from "./AnaliticButton";
+import CommentButton from "./CommentButton";
+import LikeButton from "./LikeButton";
+import ReRoarrButton from "./ReRoarrButton";
+import RoarrOptionsButton from "./RoarrOptionsButton";
+import ShareButton from "./SharedButton";
 
 interface IProps {
   post: PostData;
@@ -14,9 +14,6 @@ interface IProps {
 
 const Post: FC<IProps> = ({ post }) => {
   const time = useMemo(() => {
-    console.log('hour post : ', new Date(post.createdAt).getHours());
-    console.log('minute post : ', new Date(post.createdAt).getMinutes());
-
     const oneMinuteMilliSeconds = 1000 * 60;
     const oneHourMilliSeconds = 1000 * 60 * 60;
     const OneDayInMilliSeconds = 1000 * 60 * 60 * 24;
@@ -32,19 +29,23 @@ const Post: FC<IProps> = ({ post }) => {
         timeDifferentInMilliSeconds >= oneMinuteMilliSeconds &&
         timeDifferentInMilliSeconds < oneHourMilliSeconds
       ) {
-        const result = Math.ceil(timeDifferentInMilliSeconds / oneMinuteMilliSeconds);
+        const result = Math.ceil(
+          timeDifferentInMilliSeconds / oneMinuteMilliSeconds
+        );
         return `${result.toString()}m`;
       } else {
-        const result = Math.ceil(timeDifferentInMilliSeconds / oneHourMilliSeconds);
+        const result = Math.ceil(
+          timeDifferentInMilliSeconds / oneHourMilliSeconds
+        );
         return `${result.toString()}h`;
       }
     } else {
-      return Intl.DateTimeFormat('en-US').format(new Date(post.createdAt));
+      return Intl.DateTimeFormat("en-US").format(new Date(post.createdAt));
     }
   }, []);
 
   return (
-    <div className="flex items-start gap-4">
+    <div className="flex items-start gap-4 -z-10">
       <Avatar url={post.author.imageURL} />
       <div className="flex-1">
         <div>

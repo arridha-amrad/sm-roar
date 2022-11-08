@@ -36,8 +36,8 @@ axiosInstance.interceptors.response.use(
           return axiosInstance(prevRequest);
         })
         .catch((err) => {
-          if (err.response.status === 403) {
-            window.location.href = "/login";
+          if (err.response.status === 403 || err.response.status === 500) {
+            window.location.replace("/login");
             return;
           }
           return Promise.reject(err);
