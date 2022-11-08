@@ -8,26 +8,16 @@ interface ICreatePostDTO {
 }
 
 export default function useCreatePost() {
-  // const { mutate, isLoading } = useMutation(
-  //   (data: ICreatePostDTO) => {
-  //     return axiosInstance.post<PostData>('/api/post/createPost', data);
-  //   },
-  //   {
-  //     onSuccess(data, variables, context) {
-  //       console.log('Data : ', data);
-  //     },
-  //     onError(error, variables, context) {
-  //       console.log('error : ', error);
-  //     },
-  //   }
-  // );
-
   const { mutate } = useMutation({
     mutationFn: async (data: ICreatePostDTO) => {
-      return axiosInstance.post<PostData>('/api/post/createPost', data);
+      return axiosInstance.post<{ post: PostData }>('/api/post/createPost', data);
     },
-    onSuccess(data, variables, context) {
-      queryClient.getQueryData(['me']);
+    onSuccess({ data }) {
+      const newPost = data.post;
+      const posts = queryClient.getQueryData<PostData[]>(['posts']);
+      if (posts) {
+        queryClient.setQueryData(['posts'], [newPost, ...posts]);
+      }
     },
   });
 

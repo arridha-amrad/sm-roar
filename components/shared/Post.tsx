@@ -25,7 +25,13 @@ const Post: FC<IProps> = ({ post }) => {
     const currTime = new Date().getTime();
     const timeDifferentInMilliSeconds = currTime - postTime;
     if (timeDifferentInMilliSeconds < OneDayInMilliSeconds) {
-      if (timeDifferentInMilliSeconds >= oneMinuteMilliSeconds && timeDifferentInMilliSeconds < oneHourMilliSeconds) {
+      if (timeDifferentInMilliSeconds < oneMinuteMilliSeconds) {
+        const result = Math.ceil(timeDifferentInMilliSeconds / 1000);
+        return `${result.toString()}s`;
+      } else if (
+        timeDifferentInMilliSeconds >= oneMinuteMilliSeconds &&
+        timeDifferentInMilliSeconds < oneHourMilliSeconds
+      ) {
         const result = Math.ceil(timeDifferentInMilliSeconds / oneMinuteMilliSeconds);
         return `${result.toString()}m`;
       } else {

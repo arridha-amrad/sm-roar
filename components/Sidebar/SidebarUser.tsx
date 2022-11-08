@@ -2,19 +2,47 @@ import useLogout from '@src/hooks/user/useLogout';
 import { Me } from '@src/hooks/user/useMe';
 import ElipsisHorizontalIcon from '@src/icons/ElipsisHorizontalIcon';
 import queryClient from '@src/utils/queryClient';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Avatar from '../Avatar';
 
 const SidebarUser = () => {
   const user = queryClient.getQueryData<Me>(['me']);
   const [isShow, setIsShow] = useState(false);
+  const popupRef = useRef<HTMLDivElement | null>(null);
   const { mutate } = useLogout();
   const handleLogout = () => {
     mutate();
   };
+
+  const hidePopup = (e: KeyboardEvent) => {
+    if (isShow) {
+      if (e.key === 'Escape') {
+        setIsShow(false);
+      }
+    }
+  };
+
+  const clickOutside = (e: MouseEvent) => {
+    if (isShow) {
+      if (!popupRef.current?.contains(e.target as Node)) {
+        setIsShow(false);
+      }
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener('keydown', hidePopup);
+    document.addEventListener('click', clickOutside);
+    return () => {
+      document.removeEventListener('keydown', hidePopup);
+      document.removeEventListener('click', clickOutside);
+    };
+  }, [isShow]);
+
   return (
     <div className="relative w-full select-none">
       <div
+        ref={popupRef}
         onClick={() => setIsShow((val) => !val)}
         className="flex justify-center w-full gap-3 py-2 cursor-pointer lg:px-4 rounded-xl dark:hover:bg-slate-900 lg:-ml-3 lg:justify-start"
       >

@@ -7,9 +7,9 @@ import Image from 'next/image';
 import Logo from '@src/images/logo.png';
 
 export default function Home() {
-  const { isLoading } = useMe();
+  const { isLoading, data } = useMe();
 
-  if (isLoading) {
+  if (isLoading && !data) {
     return (
       <div className="relative flex flex-col items-center justify-center w-screen h-screen ">
         <Image src={Logo} alt="logo" width={100} height={100} priority />
@@ -19,7 +19,7 @@ export default function Home() {
   }
 
   return (
-    <div className="flex max-w-[1200px] min-h-[500px] h-screen w-full mx-auto ">
+    <div className="flex max-w-[1200px] min-h-[500px] w-full mx-auto ">
       <Head>
         <title>Roarr - Home</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />

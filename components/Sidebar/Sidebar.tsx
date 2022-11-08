@@ -1,6 +1,4 @@
-import useMe from '@src/hooks/user/useMe';
 import BookMarkIcon from '@src/icons/BookmarkIcon';
-import ElipsisHorizontalIcon from '@src/icons/ElipsisHorizontalIcon';
 import Hashtag from '@src/icons/HashtagIcon';
 import HomeIcon from '@src/icons/HomeIcon';
 import ListIcon from '@src/icons/ListIcon';
@@ -62,9 +60,8 @@ const sidebarMenu = [
 const Sidebar = () => {
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
-  const { data, isLoading } = useMe();
   return (
-    <div className="flex flex-col py-3 lg:pl-4 lg:basis-[300px] basis-[100px] min-h-screen gap-2 items-center lg:items-start">
+    <div className="flex sticky top-0 left-0 flex-col py-3 lg:pl-4 lg:basis-[300px] basis-[100px] h-screen gap-2 items-center overflow-auto lg:items-start">
       <div className="w-12 h-12 mb-2">
         <Image priority src={Logo} alt="logo" />
       </div>
