@@ -13,6 +13,7 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
     const { userId } = await verifyToken(token.split(' ')[1], 'auth');
     const newPost = await prisma.post.create({
       include: {
+        PostComment: true,
         Like: true,
         author: {
           select: {

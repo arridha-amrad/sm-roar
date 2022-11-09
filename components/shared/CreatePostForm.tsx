@@ -1,22 +1,28 @@
-import useCreatePost from "@src/hooks/post/useCreatePost";
-import { Me } from "@src/hooks/user/useMe";
-import ChevronIcon from "@src/icons/ChevronIcon";
-import GlobeIcon from "@src/icons/GlobeIcon";
-import ImageIcon from "@src/icons/ImageIcon";
-import queryClient from "@src/utils/queryClient";
-import { FormEvent, useMemo, useState } from "react";
-import Avatar from "../Avatar";
+import useCreatePost from '@src/hooks/post/useCreatePost';
+import { Me } from '@src/hooks/user/useMe';
+import ChevronIcon from '@src/icons/ChevronIcon';
+import GlobeIcon from '@src/icons/GlobeIcon';
+import ImageIcon from '@src/icons/ImageIcon';
+import queryClient from '@src/utils/queryClient';
+import { FormEvent, useEffect, useMemo, useState } from 'react';
+import Avatar from '../Avatar';
 
 const CreatePostForm = () => {
-  const [body, setBody] = useState("");
-  const me = queryClient.getQueryData<Me>(["me"]);
+  const [body, setBody] = useState('');
+  const me = queryClient.getQueryData<Me>(['me']);
 
-  const { mutate } = useCreatePost();
+  const { mutate, isSuccess } = useCreatePost();
+
+  useEffect(() => {
+    if (isSuccess) {
+      setBody('');
+      console.log('success');
+    }
+  }, [isSuccess]);
 
   const onSubmit = (e: FormEvent) => {
     e.preventDefault();
     if (!!body) {
-      console.log(body);
       mutate({
         body,
       });
@@ -34,6 +40,7 @@ const CreatePostForm = () => {
         <AudienceTag />
         <textarea
           onChange={(e) => setBody(e.target.value)}
+          value={body}
           rows={sum <= 0 ? 1 : sum >= 15 ? 15 : sum + 1}
           className="w-full bg-transparent border-none outline-none resize-none"
           placeholder="What's happening ?"

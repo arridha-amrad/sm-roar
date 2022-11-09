@@ -1,7 +1,8 @@
-import { Post, PostLike, PostMedia } from '@prisma/client';
+import { Post, PostLike, PostMedia, PostReplies } from '@prisma/client';
 
 export type PostData = Post & {
   PostMedia: PostMedia[];
+  PostComment: PostReplies[];
   author: {
     id: number;
     imageURL: string;

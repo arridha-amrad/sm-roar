@@ -11,15 +11,16 @@ datasource db {
 }
 
 model User {
-  id       Int        @id @default(autoincrement())
-  name     String
-  username String     @unique
-  email    String     @unique
-  password String
-  imageURL String     @default("default")
-  Token    Token[]
-  Post     Post[]
-  Like     PostLike[]
+  id          Int           @id @default(autoincrement())
+  name        String
+  username    String        @unique
+  email       String        @unique
+  password    String
+  imageURL    String        @default("default")
+  Token       Token[]
+  Post        Post[]
+  Like        PostLike[]
+  PostReplies PostReplies[]
 
   @@map("users")
 }
@@ -54,6 +55,8 @@ model PostReplies {
   updatedAt DateTime @updatedAt
   post      Post     @relation(fields: [postId], references: [id])
   postId    Int
+  author    User     @relation(fields: [userId], references: [id])
+  userId    Int
 
   @@map("post_replies")
 }

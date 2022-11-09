@@ -8,7 +8,7 @@ interface ICreatePostDTO {
 }
 
 export default function useCreatePost() {
-  const { mutate } = useMutation({
+  const { mutate, isSuccess } = useMutation({
     mutationFn: async (data: ICreatePostDTO) => {
       return axiosInstance.post<{ post: PostData }>('/api/post/createPost', data);
     },
@@ -23,5 +23,6 @@ export default function useCreatePost() {
 
   return {
     mutate,
+    isSuccess,
   };
 }
