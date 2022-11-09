@@ -16,6 +16,22 @@ export default function useLikePost() {
     },
     onSuccess({ data: { message, likePost } }, variables, context) {
       const posts = queryClient.getQueryData<PostData[]>(["posts"]);
+      const post = queryClient.getQueryData<PostData>([
+        "post",
+        variables.toString(),
+      ]);
+      if (post) {
+        if (message === "like") {
+          post.Like.push(likePost);
+          queryClient.setQueryData(["post", variables], post);
+        } else {
+          const updatedLikes = post.Like.filter(
+            (like) => like.userId !== likePost.userId
+          );
+          post.Like = updatedLikes;
+          queryClient.setQueryData(["post", variables.toString()], post);
+        }
+      }
 
       if (posts) {
         const index = posts.findIndex((post) => post.id === variables);

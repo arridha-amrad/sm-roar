@@ -1,9 +1,9 @@
-import useCreateComment from '@src/hooks/post/useCreateComment';
-import { Me } from '@src/hooks/user/useMe';
-import ImageIcon from '@src/icons/ImageIcon';
-import queryClient from '@src/utils/queryClient';
-import { useState, useMemo, FormEvent, FC, useEffect } from 'react';
-import Avatar from '../Avatar';
+import useCreateComment from "@src/hooks/post/useCreateComment";
+import { Me } from "@src/hooks/user/useMe";
+import ImageIcon from "@src/icons/ImageIcon";
+import queryClient from "@src/utils/queryClient";
+import { useState, useMemo, FormEvent, FC, useEffect } from "react";
+import Avatar from "../Avatar";
 
 interface IProps {
   postId: number;
@@ -11,13 +11,13 @@ interface IProps {
 }
 
 const CreateCommentForm: FC<IProps> = ({ postId, closeModal }) => {
-  const me = queryClient.getQueryData<Me>(['me']);
-  const [body, setBody] = useState('');
+  const me = queryClient.getQueryData<Me>(["me"]);
+  const [body, setBody] = useState("");
   const { isLoading, isSuccess, mutate } = useCreateComment();
 
   useEffect(() => {
     if (isSuccess) {
-      setBody('');
+      setBody("");
       closeModal();
     }
   }, [isSuccess]);
@@ -55,7 +55,7 @@ const CreateCommentForm: FC<IProps> = ({ postId, closeModal }) => {
             disabled={isLoading}
             className="px-4 py-1 mr-0 text-sm text-white bg-yellow-600 disabled:dark:bg-yellow-300 hover:bg-yellow-700 rounded-xl"
           >
-            Reply
+            {isLoading ? "loading" : "Reply"}
           </button>
         </div>
       </form>

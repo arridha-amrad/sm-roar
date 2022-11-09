@@ -1,15 +1,15 @@
-import { PostData } from '@src/modules/post/post.types';
-import timeSetter from '@src/utils/timeSetter';
-import Link from 'next/link';
-import { useRouter } from 'next/router';
-import { FC } from 'react';
-import Avatar from '../Avatar';
-import AnaliticButton from './AnaliticButton';
-import CommentButton from './CommentButton';
-import LikeButton from './LikeButton';
-import ReRoarrButton from './ReRoarrButton';
-import RoarrOptionsButton from './RoarrOptionsButton';
-import ShareButton from './SharedButton';
+import { PostData } from "@src/modules/post/post.types";
+import timeSetter from "@src/utils/timeSetter";
+import Link from "next/link";
+import { useRouter } from "next/router";
+import { FC } from "react";
+import Avatar from "../Avatar";
+import AnaliticButton from "./AnaliticButton";
+import CommentButton from "./CommentButton";
+import LikeButton from "./LikeButton";
+import ReRoarrButton from "./ReRoarrButton";
+import RoarrOptionsButton from "./RoarrOptionsButton";
+import ShareButton from "./SharedButton";
 
 interface IProps {
   post: PostData;
@@ -17,12 +17,12 @@ interface IProps {
 }
 
 const Post: FC<IProps> = ({ post, isWithActionButtons }) => {
-  const time = timeSetter({ post });
+  const time = timeSetter(post.createdAt.toString());
 
   const router = useRouter();
 
   const navigate = () => {
-    router.push(`/post/${post.id}`);
+    router.push(`/${post.author.username}/status/${post.id}`);
   };
 
   return (
@@ -50,7 +50,7 @@ const Post: FC<IProps> = ({ post, isWithActionButtons }) => {
           <div>
             <div className="my-6">
               <p className="text-sm dark:text-slate-600 text-slate-200">
-                Replying to{' '}
+                Replying to{" "}
                 <Link href="/profile" className="text-blue-500 ">
                   @{post.author.username}
                 </Link>

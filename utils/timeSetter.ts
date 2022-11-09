@@ -1,11 +1,11 @@
 import { PostData } from "@src/modules/post/post.types";
 
-export default function timeSetter({ post }: { post: PostData }) {
+export default function timeSetter(date: string) {
   const oneMinuteMilliSeconds = 1000 * 60;
   const oneHourMilliSeconds = 1000 * 60 * 60;
   const OneDayInMilliSeconds = 1000 * 60 * 60 * 24;
 
-  const postTime = new Date(post.createdAt).getTime();
+  const postTime = new Date(date).getTime();
   const currTime = new Date().getTime();
   const timeDifferentInMilliSeconds = currTime - postTime;
   if (timeDifferentInMilliSeconds < OneDayInMilliSeconds) {
@@ -27,6 +27,6 @@ export default function timeSetter({ post }: { post: PostData }) {
       return `${result.toString()}h`;
     }
   } else {
-    return Intl.DateTimeFormat("en-US").format(new Date(post.createdAt));
+    return Intl.DateTimeFormat("en-US").format(new Date(date));
   }
 }
