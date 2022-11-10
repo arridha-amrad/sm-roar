@@ -1,6 +1,6 @@
-import CloseIcon from "@src/icons/CloseIcon";
-import { FC, ReactNode } from "react";
-import ReactDOM from "react-dom";
+import CloseIcon from '@src/icons/CloseIcon';
+import { FC, ReactNode } from 'react';
+import ReactDOM from 'react-dom';
 
 interface IProps {
   setClose: VoidFunction;
@@ -23,7 +23,7 @@ const Modal: FC<IProps> = ({ setClose, children }) => {
         {children}
       </div>
     </div>,
-    document.getElementById("portal")!
+    document.getElementById('portal')!
   );
 };
 

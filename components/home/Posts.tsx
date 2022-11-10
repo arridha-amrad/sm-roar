@@ -1,4 +1,5 @@
 import useGetPosts from '@src/hooks/post/useGetPosts';
+import { Fragment } from 'react';
 import Post from '../shared/Post';
 
 const Posts = () => {
@@ -7,9 +8,12 @@ const Posts = () => {
     return <p>loading...</p>;
   }
   return (
-    <div>
-      {data?.map((post) => (
-        <Post key={post.id} post={post} isWithActionButtons={true} />
+    <div className="">
+      {data?.map((post, index) => (
+        <Fragment key={post.id}>
+          <Post post={post} isWithActionButtons={true} />
+          {index + 1 < data.length && <div className="w-full h-[1px] bg-slate-500 -z-20" />}
+        </Fragment>
       ))}
     </div>
   );

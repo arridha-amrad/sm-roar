@@ -1,4 +1,3 @@
-import { Post } from '@prisma/client';
 import useLikePost from '@src/hooks/post/useLikePost';
 import { Me } from '@src/hooks/user/useMe';
 import LoveIcon from '@src/icons/LoveIcon';

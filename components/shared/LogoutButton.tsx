@@ -2,7 +2,6 @@ import useLogout from '@src/hooks/user/useLogout';
 
 const LogoutButton = () => {
   const { mutate } = useLogout();
-
   const logout = () => {
     mutate();
   };

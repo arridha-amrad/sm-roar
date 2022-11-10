@@ -1,13 +1,13 @@
-import useLogout from "@src/hooks/user/useLogout";
-import useMe, { Me } from "@src/hooks/user/useMe";
-import ElipsisHorizontalIcon from "@src/icons/ElipsisHorizontalIcon";
-import queryClient from "@src/utils/queryClient";
-import { useEffect, useRef, useState } from "react";
-import Avatar from "../Avatar";
+import useLogout from '@src/hooks/user/useLogout';
+import useMe, { Me } from '@src/hooks/user/useMe';
+import ElipsisHorizontalIcon from '@src/icons/ElipsisHorizontalIcon';
+import queryClient from '@src/utils/queryClient';
+import { useEffect, useRef, useState } from 'react';
+import Avatar from '../Avatar';
 
 const SidebarUser = () => {
   useMe();
-  const user = queryClient.getQueryData<Me>(["me"]);
+  const user = queryClient.getQueryData<Me>(['me']);
   // const { data: user, isLoading } = useMe();
   const [isShow, setIsShow] = useState(false);
   const popupRef = useRef<HTMLDivElement | null>(null);
@@ -18,7 +18,7 @@ const SidebarUser = () => {
 
   const hidePopup = (e: KeyboardEvent) => {
     if (isShow) {
-      if (e.key === "Escape") {
+      if (e.key === 'Escape') {
         setIsShow(false);
       }
     }
@@ -33,11 +33,11 @@ const SidebarUser = () => {
   };
 
   useEffect(() => {
-    document.addEventListener("keydown", hidePopup);
-    document.addEventListener("click", clickOutside);
+    document.addEventListener('keydown', hidePopup);
+    document.addEventListener('click', clickOutside);
     return () => {
-      document.removeEventListener("keydown", hidePopup);
-      document.removeEventListener("click", clickOutside);
+      document.removeEventListener('keydown', hidePopup);
+      document.removeEventListener('click', clickOutside);
     };
   }, [isShow]);
 
@@ -58,17 +58,14 @@ const SidebarUser = () => {
         </button>
       </div>
       {isShow && (
-        <div className="fixed z-10 w-[300px] h-[100px] overflow-hidden border  rounded-xl bottom-20 bg-slate-800 dark:border-slate-700 flex flex-col ">
+        <div className="fixed z-[80] w-[300px] h-[100px] overflow-hidden border  rounded-xl bottom-20 bg-slate-800 dark:border-slate-700 flex flex-col ">
           <button
-            onClick={() => alert("method not implemented")}
+            onClick={() => alert('method not implemented')}
             className="flex-1 w-full px-6 text-sm text-start hover:bg-slate-900"
           >
             Add an exsiting account
           </button>
-          <button
-            onClick={handleLogout}
-            className="flex-1 w-full px-6 text-sm text-start hover:bg-slate-900"
-          >
+          <button onClick={handleLogout} className="flex-1 w-full px-6 text-sm text-start hover:bg-slate-900">
             Log out @{user?.username}
           </button>
         </div>
