@@ -1,7 +1,7 @@
-import timeSetter from "@src/utils/timeSetter";
-import { FC } from "react";
-import Avatar from "../Avatar";
-import RoarrOptionsButton from "./RoarrOptionsButton";
+import timeSetter from '@src/utils/timeSetter';
+import { FC } from 'react';
+import Avatar from './Avatar';
+import RoarrOptionsButton from './RoarrOptionsButton';
 
 interface IProps {
   comment: {

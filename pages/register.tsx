@@ -1,12 +1,11 @@
-import Head from "next/head";
-import Image from "next/image";
-import ThemeSwitcher from "@src/components/shared/ThemeSwitcher";
-import Logo from "@src/images/logo.png";
-import Link from "next/link";
-import { FormEvent, useEffect, useRef, useState } from "react";
-import Input from "@src/components/Input";
-import useRegister from "@src/hooks/user/useRegister";
-import Checkbox from "@src/components/shared/Checkbox";
+import Head from 'next/head';
+import Image from 'next/image';
+import ThemeSwitcher from '@src/components/shared/ThemeSwitcher';
+import Link from 'next/link';
+import { FormEvent, useEffect, useRef, useState } from 'react';
+import Input from '@src/components/shared/Input';
+import useRegister from '@src/hooks/user/useRegister';
+import Checkbox from '@src/components/shared/Checkbox';
 
 const Register = () => {
   const emailRef = useRef<HTMLInputElement | null>(null);
@@ -50,17 +49,14 @@ const Register = () => {
       </Head>
 
       <div className="relative w-16 h-16 mx-auto">
-        <Image src={Logo} alt="logo" />
+        <Image src="/logo.png" fill alt="logo" />
       </div>
 
       <h1 className="mb-10 text-3xl font-semibold text-center ">
         Login to <span className="font-bold text-yellow-500">Roarr</span>
       </h1>
 
-      <form
-        onSubmit={onSubmit}
-        className="flex flex-col gap-4 w-[300px] relative"
-      >
+      <form onSubmit={onSubmit} className="flex flex-col gap-4 w-[300px] relative">
         {isError && (
           <div className="max-w-[300px] w-[300px] absolute -top-7 text-center dark:text-red-400 text-red-500 ">
             {error}
@@ -68,28 +64,28 @@ const Register = () => {
         )}
 
         <Input
-          error={errorFields.find((err) => err.field === "email")?.message}
+          error={errorFields.find((err) => err.field === 'email')?.message}
           ref={emailRef}
           type="text"
           label="Email Address"
         />
         <Input
-          error={errorFields.find((err) => err.field === "name")?.message}
+          error={errorFields.find((err) => err.field === 'name')?.message}
           ref={nameRef}
           type="text"
           label="Name"
         />
         <Input
-          error={errorFields.find((err) => err.field === "username")?.message}
+          error={errorFields.find((err) => err.field === 'username')?.message}
           ref={usernameRef}
           type="text"
           label="Username"
         />
         <Input
-          error={errorFields.find((err) => err.field === "password")?.message}
+          error={errorFields.find((err) => err.field === 'password')?.message}
           ref={passwordRef}
           label="Password"
-          type={isShowPassword ? "text" : "password"}
+          type={isShowPassword ? 'text' : 'password'}
         />
 
         <div className="flex items-center gap-3">
@@ -97,18 +93,14 @@ const Register = () => {
           <label>Show Password</label>
         </div>
 
-        <button
-          disabled={isLoading}
-          type="submit"
-          className="self-stretch my-btn"
-        >
+        <button disabled={isLoading} type="submit" className="self-stretch my-btn">
           Register
         </button>
       </form>
 
       <div className="mt-6 text-sm">
-        already have an account ?{" "}
-        <Link className="text-blue-500 dark:text-blue-300" href={"/login"}>
+        already have an account ?{' '}
+        <Link className="text-blue-500 dark:text-blue-300" href={'/login'}>
           login
         </Link>
       </div>

@@ -1,5 +1,5 @@
-import Link from "next/link";
-import { FC, forwardRef, InputHTMLAttributes, LegacyRef } from "react";
+import Link from 'next/link';
+import { forwardRef, InputHTMLAttributes, LegacyRef } from 'react';
 
 type IProps = InputHTMLAttributes<HTMLInputElement> & {
   label: string;
@@ -15,10 +15,7 @@ const Input = forwardRef((props: IProps, ref: LegacyRef<HTMLInputElement>) => {
       <div className="flex items-center justify-between">
         <label className="font-semibold">{label}</label>
         {otherlabel && otherlink && (
-          <Link
-            href={otherlink}
-            className="text-sm text-blue-500 dark:text-blue-300"
-          >
+          <Link href={otherlink} className="text-sm text-blue-500 dark:text-blue-300">
             {otherlabel}
           </Link>
         )}

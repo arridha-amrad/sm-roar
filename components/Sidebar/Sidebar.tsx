@@ -7,7 +7,7 @@ import MoreIcon from '@src/icons/MoreIcon';
 import NotificationIcon from '@src/icons/NotificationIcon';
 import PencilIcon from '@src/icons/PencilIcon';
 import ProfileIcon from '@src/icons/ProfileIcon';
-import Logo from '@src/images/logo.png';
+
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
@@ -64,7 +64,7 @@ const Sidebar = () => {
   return (
     <div className="flex sticky top-0 left-0 flex-col py-3 lg:pl-4 lg:basis-[300px] basis-[100px] h-screen gap-2 items-center overflow-y-auto lg:items-start border-r border-slate-700">
       <div className="w-12 h-12 mb-2" onClick={() => router.push('/')}>
-        <Image priority src={Logo} alt="logo" />
+        <img src="/logo.png" alt="logo" />
       </div>
 
       <div className="space-y-3">

@@ -8,9 +8,8 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
         createdAt: 'desc',
       },
       include: {
-        PostComment: true,
+        Media: true,
         Like: true,
-        PostMedia: true,
         author: {
           select: {
             imageURL: true,

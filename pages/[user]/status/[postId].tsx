@@ -9,9 +9,7 @@ import { useRouter } from 'next/router';
 
 const PostDetail = () => {
   const router = useRouter();
-
   const postId = router.query.postId as string | undefined;
-
   const { data, isLoading } = useGetOnePost({ postId: postId ? postId : '' });
 
   return (

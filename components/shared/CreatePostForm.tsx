@@ -5,7 +5,7 @@ import GlobeIcon from '@src/icons/GlobeIcon';
 import ImageIcon from '@src/icons/ImageIcon';
 import queryClient from '@src/utils/queryClient';
 import { FormEvent, useEffect, useMemo, useState } from 'react';
-import Avatar from '../Avatar';
+import Avatar from './Avatar';
 
 const CreatePostForm = () => {
   const [body, setBody] = useState('');

@@ -3,7 +3,6 @@ import Head from 'next/head';
 import Sidebar from '@src/components/Sidebar/Sidebar';
 import CreatePostForm from '@src/components/shared/CreatePostForm';
 import Posts from '@src/components/home/Posts';
-import Logo from '@src/images/logo.png';
 import Navbar from '@src/components/shared/Navbar';
 
 import SearchRoarr from '@src/components/shared/SearchRoarr';
@@ -16,7 +15,7 @@ export default function Home() {
   if (isLoading) {
     return (
       <div className="relative flex flex-col items-center justify-center w-screen h-screen ">
-        <img src={Logo.src} alt="logo" className="object-cover w-24 h-24" />
+        <img src="/logo.png" alt="logo" className="object-cover w-24 h-24" />
         <p className="relative">Loading...</p>
       </div>
     );

@@ -3,7 +3,7 @@ import useMe, { Me } from '@src/hooks/user/useMe';
 import ElipsisHorizontalIcon from '@src/icons/ElipsisHorizontalIcon';
 import queryClient from '@src/utils/queryClient';
 import { useEffect, useRef, useState } from 'react';
-import Avatar from '../Avatar';
+import Avatar from '../shared/Avatar';
 
 const SidebarUser = () => {
   useMe();

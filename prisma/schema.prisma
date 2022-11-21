@@ -11,72 +11,65 @@ datasource db {
 }
 
 model User {
-  id          Int           @id @default(autoincrement())
-  name        String
-  username    String        @unique
-  email       String        @unique
-  password    String
-  imageURL    String        @default("default")
-  Token       Token[]
-  Post        Post[]
-  Like        PostLike[]
-  PostReplies PostReplies[]
+  id        String   @id @default(cuid())
+  name      String
+  username  String   @unique
+  email     String   @unique
+  password  String
+  imageURL  String   @default("default")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  token     Token[]
+  posts     Post[]
+  like      Like[]
 
   @@map("users")
 }
 
 model Token {
-  id     Int    @id @default(autoincrement())
-  value  String
-  user   User   @relation(fields: [userId], references: [id])
-  userId Int
+  id        String   @id @default(cuid())
+  value     String
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    String
 
   @@map("tokens")
 }
 
 model Post {
-  id          Int           @id @default(autoincrement())
-  body        String
-  author      User          @relation(fields: [userId], references: [id])
-  userId      Int
-  createdAt   DateTime
-  updatedAt   DateTime      @updatedAt
-  PostMedia   PostMedia[]
-  Like        PostLike[]
-  PostComment PostReplies[]
+  id        String   @id @default(uuid())
+  body      String
+  author    User     @relation(fields: [authorId], references: [id])
+  authorId  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  parent    Post?    @relation("ParentChild", fields: [parentId], references: [id], onDelete: Cascade)
+  parentId  String?
+  children  Post[]   @relation("ParentChild")
+  likes     Like[]
+  medias    Media[]
 
   @@map("posts")
 }
 
-model PostReplies {
+model Like {
+  post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
+  postId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    String
+  createdAt DateTime @default(now())
+
+  @@id([postId, userId])
+  @@map("likes")
+}
+
+model Media {
   id        Int      @id @default(autoincrement())
-  body      String
-  createdAt DateTime
+  url       String
+  post      Post?    @relation(fields: [postId], references: [id], onDelete: Cascade)
+  postId    String
+  createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  post      Post     @relation(fields: [postId], references: [id])
-  postId    Int
-  author    User     @relation(fields: [userId], references: [id])
-  userId    Int
 
-  @@map("post_replies")
-}
-
-model PostLike {
-  id     Int  @id @default(autoincrement())
-  post   Post @relation(fields: [postId], references: [id])
-  postId Int
-  User   User @relation(fields: [userId], references: [id])
-  userId Int
-
-  @@unique([postId, userId, id])
-  @@map("post_likes")
-}
-
-model PostMedia {
-  id     Int    @id @default(autoincrement())
-  url    String
-  post   Post   @relation(fields: [postId], references: [id])
-  postId Int
-
-  @@map("post_medias")
+  @@map("media")
 }

@@ -3,7 +3,7 @@ import { Me } from '@src/hooks/user/useMe';
 import ImageIcon from '@src/icons/ImageIcon';
 import queryClient from '@src/utils/queryClient';
 import { useState, useMemo, FormEvent, FC, useEffect } from 'react';
-import Avatar from '../Avatar';
+import Avatar from './Avatar';
 
 interface IProps {
   postId: number;

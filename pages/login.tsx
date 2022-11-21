@@ -1,18 +1,16 @@
-import Head from "next/head";
-import Image from "next/image";
-import ThemeSwitcher from "@src/components/shared/ThemeSwitcher";
-import Logo from "@src/images/logo.png";
-import Link from "next/link";
-import { FormEvent, useEffect, useRef, useState } from "react";
-import Input from "@src/components/Input";
-import useLogin from "@src/hooks/user/useLogin";
-import CheckIcon from "@src/icons/CheckIcon";
-import Checkbox from "@src/components/shared/Checkbox";
+import Head from 'next/head';
+import Image from 'next/image';
+import ThemeSwitcher from '@src/components/shared/ThemeSwitcher';
+import Link from 'next/link';
+import { FormEvent, useEffect, useRef, useState } from 'react';
+import Input from '@src/components/shared/Input';
+import useLogin from '@src/hooks/user/useLogin';
+import Checkbox from '@src/components/shared/Checkbox';
 
 const Login = () => {
   const identityRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
-  const checkRef = useRef<HTMLInputElement | null>(null);
+
   const { mutate, error, isError, isLoading } = useLogin();
   const [isShowPassword, setIsShowPassword] = useState(false);
 
@@ -43,17 +41,14 @@ const Login = () => {
       </Head>
 
       <div className="relative w-16 h-16 mx-auto">
-        <Image src={Logo} alt="logo" />
+        <Image src="/logo.png" fill alt="logo" />
       </div>
 
       <h1 className="mb-10 text-3xl font-semibold text-center ">
         Login to <span className="font-bold text-yellow-500">Roarr</span>
       </h1>
 
-      <form
-        onSubmit={onSubmit}
-        className="flex relative flex-col gap-4 w-[300px]"
-      >
+      <form onSubmit={onSubmit} className="flex relative flex-col gap-4 w-[300px]">
         {isError && (
           <div className="max-w-[300px] w-[300px] absolute -top-7 text-center dark:text-red-400 text-red-500 ">
             {error}
@@ -64,7 +59,7 @@ const Login = () => {
         <Input
           ref={passwordRef}
           label="Password"
-          type={isShowPassword ? "text" : "password"}
+          type={isShowPassword ? 'text' : 'password'}
           otherlabel="forgot password"
           otherlink="/forgotPassword"
         />
@@ -74,18 +69,14 @@ const Login = () => {
           <label>Show Password</label>
         </div>
 
-        <button
-          disabled={isLoading}
-          type="submit"
-          className="self-stretch my-btn"
-        >
+        <button disabled={isLoading} type="submit" className="self-stretch my-btn">
           Login
         </button>
       </form>
 
       <div className="mt-6 text-sm">
-        don't have an account ?{" "}
-        <Link className="text-blue-500 dark:text-blue-300" href={"/register"}>
+        don't have an account ?{' '}
+        <Link className="text-blue-500 dark:text-blue-300" href={'/register'}>
           register
         </Link>
       </div>

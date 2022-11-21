@@ -3,7 +3,7 @@ import timeSetter from '@src/utils/timeSetter';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { FC } from 'react';
-import Avatar from '../Avatar';
+import Avatar from './Avatar';
 import AnaliticButton from './AnaliticButton';
 import CommentButton from './CommentButton';
 import LikeButton from './LikeButton';
