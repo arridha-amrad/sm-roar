@@ -8,6 +8,7 @@ import Navbar from '@src/components/shared/Navbar';
 import SearchRoarr from '@src/components/shared/SearchRoarr';
 import TrendingTopics from '@src/components/shared/TrendingTopics';
 import RecommendedUsers from '@src/components/shared/RecommendedUsers';
+import Image from 'next/image';
 
 export default function Home() {
   const { isLoading } = useMe();
@@ -15,7 +16,7 @@ export default function Home() {
   if (isLoading) {
     return (
       <div className="relative flex flex-col items-center justify-center w-screen h-screen ">
-        <img src="/logo.png" alt="logo" className="object-cover w-24 h-24" />
+        <Image priority src="/logo.png" alt="logo" width={96} height={96} />
         <p className="relative">Loading...</p>
       </div>
     );
@@ -27,7 +28,7 @@ export default function Home() {
         <title>Roarr - Home</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
-      <Sidebar />
+        <Sidebar />
       <div className="flex flex-1">
         <div className="flex-[3] border-r border-slate-700">
           <Navbar label="Home" />

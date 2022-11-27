@@ -26,10 +26,10 @@ const Post: FC<IProps> = ({ post, isWithActionButtons }) => {
   };
 
   return (
-    <div className="flex items-start gap-4 p-4 cursor-pointer">
+    <div onClick={navigate} className="flex items-start gap-4 p-4 cursor-pointer">
       <Avatar url={post.author.imageURL} />
       <div className="flex-1">
-        <div onClick={navigate}>
+        <div >
           <h1 className="text-sm font-bold">
             {post.author.name}
             <span className="mx-2 font-light dark:text-slate-400">

@@ -12,7 +12,7 @@ const Posts = () => {
       {data?.map((post, index) => (
         <Fragment key={post.id}>
           <Post post={post} isWithActionButtons={true} />
-          {index + 1 < data.length && <div className="w-full h-[1px] bg-slate-500 -z-20" />}
+          {index + 1 < data.length && <div className="w-full h-[1px] bg-slate-700" />}
         </Fragment>
       ))}
     </div>
