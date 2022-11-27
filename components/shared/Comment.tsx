@@ -1,16 +1,12 @@
-import timeSetter from '@src/utils/timeSetter';
-import { FC } from 'react';
-import Avatar from './Avatar';
-import RoarrOptionsButton from './RoarrOptionsButton';
+import { IAuthor } from "@src/modules/post/post.types";
+import timeSetter from "@src/utils/timeSetter";
+import { FC } from "react";
+import Avatar from "./Avatar";
+import RoarrOptionsButton from "./RoarrOptionsButton";
 
 interface IProps {
   comment: {
-    author: {
-      id: number;
-      username: string;
-      name: string;
-      imageURL: string;
-    };
+    author: IAuthor;
     body: string;
     createdAt: Date;
   };

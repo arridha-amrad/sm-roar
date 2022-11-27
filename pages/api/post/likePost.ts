@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import prisma from "@src/utils/prismaInstance";
 import { verifyToken } from "@src/utils/token";
-import { PostLike } from "@prisma/client";
+import { Like } from "@prisma/client";
 
 export default async function (req: NextApiRequest, res: NextApiResponse) {
   const { postId } = req.body;
@@ -11,27 +11,30 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
       throw new Error("Un Authorized");
     }
     const { userId } = await verifyToken(token.split(" ")[1], "auth");
-    let likePost: PostLike | null;
+    let likePost: Like | null;
     let message: string;
-    likePost = await prisma.postLike.findFirst({
+    likePost = await prisma.like.findFirst({
       where: {
         postId,
-        userId: parseInt(userId),
+        userId,
       },
     });
     if (likePost) {
       message = "dislike";
-      await prisma.postLike.delete({
+      await prisma.like.delete({
         where: {
-          id: likePost.id,
+          postId_userId: {
+            postId,
+            userId,
+          },
         },
       });
     } else {
       message = "like";
-      likePost = await prisma.postLike.create({
+      likePost = await prisma.like.create({
         data: {
-          postId: parseInt(postId),
-          userId: parseInt(userId),
+          postId,
+          userId,
         },
       });
     }

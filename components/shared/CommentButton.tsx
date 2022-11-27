@@ -1,12 +1,12 @@
-import CommentIcon from '@src/icons/CommentIcon';
-import { PostData } from '@src/modules/post/post.types';
-import { FC, useRef, useState } from 'react';
-import CreateCommentForm from './CreateCommentForm';
-import Modal from './Modal';
-import Post from './Post';
+import CommentIcon from "@src/icons/CommentIcon";
+import { TPost } from "@src/modules/post/post.types";
+import { FC, useRef, useState } from "react";
+import CreateCommentForm from "./CreateCommentForm";
+import Modal from "./Modal";
+import Post from "./Post";
 
 interface IProps {
-  post: PostData;
+  post: TPost;
 }
 
 const CommentButton: FC<IProps> = ({ post }) => {
@@ -15,7 +15,8 @@ const CommentButton: FC<IProps> = ({ post }) => {
     setIsOpen(false);
   };
 
-  const totalComment = post.PostComment.length !== 0 ? post.PostComment.length.toString() : '';
+  const totalComment =
+    post.children.length !== 0 ? post.children.length.toString() : "";
 
   const composerRef = useRef<HTMLDivElement | null>(null);
   return (

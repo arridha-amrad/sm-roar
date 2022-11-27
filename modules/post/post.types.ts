@@ -1,15 +1,19 @@
-import { Post, PostLike, PostMedia, PostReplies } from '@prisma/client';
+import { Post, Like, Media } from "@prisma/client";
 
-export type PostData = Post & {
-  PostMedia: PostMedia[];
-  PostComment: TReplies[];
-  author: {
-    id: number;
-    imageURL: string;
-    name: string;
-    username: string;
-  };
-  Like: PostLike[];
+export type TReplies = Post & {
+  author: IAuthor;
+  children: Post[];
+  likes: Like[];
+  medias: Media[];
+  parent: Post | null;
+};
+
+export type TPost = Post & {
+  author: IAuthor;
+  children: TReplies[];
+  likes: Like[];
+  medias: Media[];
+  parent: Post | null;
 };
 
 export interface IAuthor {
@@ -18,7 +22,3 @@ export interface IAuthor {
   username: string;
   imageURL: string;
 }
-
-export type TReplies = PostReplies & {
-  author: IAuthor;
-};

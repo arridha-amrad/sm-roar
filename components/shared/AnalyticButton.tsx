@@ -1,14 +1,14 @@
-import AnaliticIcon from '@src/icons/AnaliticIcon';
+import AnalyticIcon from "@src/icons/AnalyticIcon";
 
-const AnaliticButton = () => {
+const AnalyticButton = () => {
   return (
     <button className="relative group">
-      <AnaliticIcon />
+      <AnalyticIcon />
       <div className="absolute hidden p-1 text-xs font-light -translate-x-1/2 rounded-lg group-hover:block dark:bg-black left-1/2 bg-slate-300 t">
-        analitics
+        analytics
       </div>
     </button>
   );
 };
 
-export default AnaliticButton;
+export default AnalyticButton;

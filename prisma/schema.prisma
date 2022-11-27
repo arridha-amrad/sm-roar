@@ -19,7 +19,7 @@ model User {
   imageURL  String   @default("default")
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  token     Token[]
+  tokens    Token[]
   posts     Post[]
   like      Like[]
 
@@ -37,7 +37,7 @@ model Token {
 }
 
 model Post {
-  id        String   @id @default(uuid())
+  id        String   @id @default(cuid())
   body      String
   author    User     @relation(fields: [authorId], references: [id])
   authorId  String
@@ -64,7 +64,7 @@ model Like {
 }
 
 model Media {
-  id        Int      @id @default(autoincrement())
+  id        String   @id @default(cuid())
   url       String
   post      Post?    @relation(fields: [postId], references: [id], onDelete: Cascade)
   postId    String

@@ -1,22 +1,23 @@
-import useCreatePost from '@src/hooks/post/useCreatePost';
-import { Me } from '@src/hooks/user/useMe';
-import ChevronIcon from '@src/icons/ChevronIcon';
-import GlobeIcon from '@src/icons/GlobeIcon';
-import ImageIcon from '@src/icons/ImageIcon';
-import queryClient from '@src/utils/queryClient';
-import { FormEvent, useEffect, useMemo, useState } from 'react';
-import Avatar from './Avatar';
+import { FormEvent, useEffect, useMemo, useState } from "react";
+
+import useCreatePost from "@src/hooks/post/useCreatePost";
+import { Me } from "@src/hooks/user/useMe";
+import ChevronIcon from "@src/icons/ChevronIcon";
+import GlobeIcon from "@src/icons/GlobeIcon";
+import ImageIcon from "@src/icons/ImageIcon";
+import queryClient from "@src/utils/queryClient";
+
+import Avatar from "./Avatar";
 
 const CreatePostForm = () => {
-  const [body, setBody] = useState('');
-  const me = queryClient.getQueryData<Me>(['me']);
+  const [body, setBody] = useState("");
+  const me = queryClient.getQueryData<Me>(["me"]);
 
   const { mutate, isSuccess } = useCreatePost();
 
   useEffect(() => {
     if (isSuccess) {
-      setBody('');
-      console.log('success');
+      setBody("");
     }
   }, [isSuccess]);
 
