@@ -42,6 +42,7 @@ const CreateCommentForm: FC<IProps> = ({ postId, closeModal }) => {
       </div>
       <form onSubmit={onSubmit} className="flex flex-col w-full">
         <textarea
+          onFocus={(e) => e.stopPropagation()}
           value={body}
           onChange={(e) => setBody(e.target.value)}
           rows={sum <= 3 ? 3 : sum >= 15 ? 15 : sum + 1}

@@ -22,14 +22,19 @@ const Post: FC<IProps> = ({ post, isWithActionButtons }) => {
   const router = useRouter();
 
   const navigate = () => {
+    console.log("move");
+
     router.push(`/${post.author.username}/status/${post.id}`);
   };
 
   return (
-    <div onClick={navigate} className="flex items-start gap-4 p-4 cursor-pointer">
+    <div
+      onClick={navigate}
+      className="flex items-start gap-4 p-4 cursor-pointer"
+    >
       <Avatar url={post.author.imageURL} />
       <div className="flex-1">
-        <div >
+        <div>
           <h1 className="text-sm font-bold">
             {post.author.name}
             <span className="mx-2 font-light dark:text-slate-400">
@@ -39,7 +44,10 @@ const Post: FC<IProps> = ({ post, isWithActionButtons }) => {
           <p className="font-light whitespace-pre">{post.body}</p>
         </div>
         {isWithActionButtons ? (
-          <div className="flex items-center justify-between mt-3">
+          <div
+            onClick={(e) => e.stopPropagation()}
+            className="flex items-center justify-between mt-3"
+          >
             <CommentButton post={post} />
             <ReRoarrButton />
             <LikeButton post={post} />

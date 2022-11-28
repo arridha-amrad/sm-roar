@@ -45,7 +45,7 @@ CREATE TABLE "likes" (
 
 -- CreateTable
 CREATE TABLE "media" (
-    "id" SERIAL NOT NULL,
+    "id" TEXT NOT NULL,
     "url" TEXT NOT NULL,
     "postId" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,

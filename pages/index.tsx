@@ -1,14 +1,14 @@
-import useMe from '@src/hooks/user/useMe';
-import Head from 'next/head';
-import Sidebar from '@src/components/Sidebar/Sidebar';
-import CreatePostForm from '@src/components/shared/CreatePostForm';
-import Posts from '@src/components/home/Posts';
-import Navbar from '@src/components/shared/Navbar';
+import Head from "next/head";
+import Image from "next/image";
 
-import SearchRoarr from '@src/components/shared/SearchRoarr';
-import TrendingTopics from '@src/components/shared/TrendingTopics';
-import RecommendedUsers from '@src/components/shared/RecommendedUsers';
-import Image from 'next/image';
+import Posts from "@src/components/home/Posts";
+import CreatePostForm from "@src/components/shared/CreatePostForm";
+import Navbar from "@src/components/shared/Navbar";
+import RecommendedUsers from "@src/components/shared/RecommendedUsers";
+import SearchRoarr from "@src/components/shared/SearchRoarr";
+import TrendingTopics from "@src/components/shared/TrendingTopics";
+import Sidebar from "@src/components/Sidebar/Sidebar";
+import useMe from "@src/hooks/user/useMe";
 
 export default function Home() {
   const { isLoading } = useMe();
@@ -28,7 +28,7 @@ export default function Home() {
         <title>Roarr - Home</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
-        <Sidebar />
+      <Sidebar />
       <div className="flex flex-1">
         <div className="flex-[3] border-r border-slate-700">
           <Navbar label="Home" />

@@ -27,12 +27,12 @@ const LikeButton: FC<IProps> = ({ post }) => {
       className="relative group "
     >
       <div
-        className={`flex hover:text-pink-500 item-center ${
+        className={`flex relative hover:text-pink-500 item-center ${
           isLiked ? "text-pink-500" : ""
         }`}
       >
         <LoveIcon isSmall={true} />
-        <span className="text-sm">
+        <span className="absolute text-sm -top-[2px] left-6">
           {post.likes.length > 0 ? post.likes.length : ""}
         </span>
       </div>

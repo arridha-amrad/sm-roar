@@ -61,6 +61,7 @@ const sidebarMenu = [
 const Sidebar = () => {
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
+  const closeModal = () => setIsOpen(false);
   return (
     <div className="flex sticky top-0 bottom-0 left-0 flex-col py-3 lg:pl-4 lg:w-[300px] w-[100px] h-screen gap-2 items-center overflow-y-auto lg:items-start border-r border-slate-700">
       <Image
@@ -77,7 +78,11 @@ const Sidebar = () => {
           <div
             key={index}
             onClick={() => router.push(menu.link)}
-            className={`flex relative items-center justify-center h-[50px] gap-4 ${router.pathname !== menu.link ? (`dark:hover:bg-slate-900 hover:bg-gray-200`) : (``)}  cursor-pointer lg:px-4 lg:w-fit w-[50px] lg:rounded-xl lg:-ml-2 rounded-full ${
+            className={`flex relative items-center justify-center h-[50px] gap-4 ${
+              router.pathname !== menu.link
+                ? `dark:hover:bg-slate-900 hover:bg-gray-200`
+                : ``
+            }  cursor-pointer lg:px-4 lg:w-fit w-[50px] lg:rounded-xl lg:-ml-2 rounded-full ${
               router.pathname === menu.link
                 ? "dark:text-white dark:bg-yellow-600 opacity-90 font-bold text-slate-800 bg-yellow-500"
                 : ""
@@ -105,8 +110,8 @@ const Sidebar = () => {
       </div>
       <SidebarUser />
       {isOpen && (
-        <Modal setClose={() => setIsOpen(false)}>
-          <CreatePostForm />
+        <Modal setClose={closeModal}>
+          <CreatePostForm closeModal={closeModal} />
         </Modal>
       )}
     </div>

@@ -21,16 +21,12 @@ const CommentButton: FC<IProps> = ({ post }) => {
   const composerRef = useRef<HTMLDivElement | null>(null);
   return (
     <>
-      <button
-        onClick={(e) => {
-          e.stopPropagation();
-          setIsOpen(true);
-        }}
-        className="relative group "
-      >
-        <div className="flex items-center hover:text-green-500">
+      <button onClick={(e) => setIsOpen(true)} className="relative group ">
+        <div className="relative flex items-center hover:text-green-500">
           <CommentIcon />
-          <span className="pb-1 text-sm">{totalComment}</span>
+          <span className="pb-1 text-sm absolute -top-[2px] left-6">
+            {totalComment}
+          </span>
         </div>
         <div className="absolute hidden p-1 text-xs font-light -translate-x-1/2 rounded-lg group-hover:block dark:bg-black left-1/2 bg-slate-300 t">
           comment

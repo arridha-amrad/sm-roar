@@ -1,4 +1,4 @@
-import { FormEvent, useEffect, useMemo, useState } from "react";
+import { FC, FormEvent, useEffect, useMemo, useState } from "react";
 
 import useCreatePost from "@src/hooks/post/useCreatePost";
 import { Me } from "@src/hooks/user/useMe";
@@ -8,16 +8,22 @@ import ImageIcon from "@src/icons/ImageIcon";
 import queryClient from "@src/utils/queryClient";
 
 import Avatar from "./Avatar";
+import Spinner from "./Spinner";
 
-const CreatePostForm = () => {
+interface IProps {
+  closeModal?: VoidFunction;
+}
+
+const CreatePostForm: FC<IProps> = ({ closeModal }) => {
   const [body, setBody] = useState("");
   const me = queryClient.getQueryData<Me>(["me"]);
 
-  const { mutate, isSuccess } = useCreatePost();
+  const { mutate, isSuccess, isLoading } = useCreatePost();
 
   useEffect(() => {
     if (isSuccess) {
       setBody("");
+      closeModal && closeModal();
     }
   }, [isSuccess]);
 
@@ -53,10 +59,11 @@ const CreatePostForm = () => {
             <ImageIcon />
           </button>
           <button
+            disabled={isLoading}
             type="submit"
-            className="px-4 py-1 mt-2 text-sm tracking-wide text-white dark:bg-yellow-600 dark:hover:bg-yellow-700 rounded-xl"
+            className="px-4 py-1 mt-2 text-sm font-semibold tracking-wide text-white capitalize disabled:cursor-wait dark:bg-yellow-600 dark:hover:bg-yellow-700 rounded-xl"
           >
-            Roarr
+            {isLoading ? <Spinner /> : "roarr"}
           </button>
         </div>
       </form>
