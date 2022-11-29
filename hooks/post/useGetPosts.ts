@@ -1,5 +1,5 @@
-import { setPostsCache } from '@src/caches/PostCache';
-import { IPost } from '@src/modules/post/post.types';
+import { setHomePosts } from '@src/caches/PostCache';
+import { THomePost } from '@src/modules/post/post.types';
 import queryClient from '@src/utils/queryClient';
 import { useQuery } from '@tanstack/react-query';
 import {Me} from "@src/hooks/user/useMe"
@@ -11,11 +11,11 @@ export default function useGetPosts() {
     queryKey: ['posts'],
     enabled: !!loginUser,
     queryFn: async () => {
-      const { data } = await axiosInstance.get<{ posts: IPost[] }>('/api/post/getPosts');
+      const { data } = await axiosInstance.get<{ posts: THomePost[] }>('/api/post/getPosts');
       return data.posts;
     },
     onSuccess(data) {
-      setPostsCache({ data });
+      setHomePosts({ data });
     },
     staleTime: 1000 * 60,
   });

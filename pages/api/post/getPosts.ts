@@ -2,6 +2,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 import prisma from "@src/utils/prismaInstance";
 import { QUERY_AUTHOR_DATA } from "@src/modules/post/post.constants";
 import { verifyToken } from "@src/utils/token";
+import { IAuthor } from "@src/modules/post/post.types";
 
 export default async function (req: NextApiRequest, res: NextApiResponse) {
 
@@ -16,6 +17,13 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
         createdAt: "desc",
       },
       include: {
+        parent: {
+          select: {
+            author: {
+              select: QUERY_AUTHOR_DATA
+            }
+          }
+        },
         _count: {
           select: {
             children: true,

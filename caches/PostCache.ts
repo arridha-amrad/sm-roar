@@ -1,20 +1,22 @@
-import { IPost, TPost } from "@src/modules/post/post.types";
+import { THomePost, TPost } from "@src/modules/post/post.types";
 import queryClient from "@src/utils/queryClient";
 
-export const setPostsCache = ({ data }: { data: IPost[] }) => {
+export const setHomePosts = ({ data }: { data: THomePost[] }) => {
   queryClient.setQueryData(["posts"], data);
 };
-export const getPostsCache = () => queryClient.getQueryData<TPost[]>(["posts"]);
 
-export const setPostCache = ({
-  postId,
-  data,
-}: {
-  postId: string;
-  data: TPost;
-}) => {
-  queryClient.setQueryData(["post", postId], data);
-};
-export const getPostCache = ({ postId }: { postId: string }) => {
-  return queryClient.getQueryData<TPost>(["post", postId]);
-};
+export const getHomePosts = () => queryClient.getQueryData<THomePost[]>(["posts"]);
+
+// export const setPostDetail = ({
+//   postId,
+//   data,
+// }: {
+//   postId: string;
+//   data: IPost;
+// }) => {
+//   queryClient.setQueryData(["post", postId], data);
+// };
+
+// export const getPostDetail = ({ postId }: { postId: string }) => {
+//   return queryClient.getQueryData<TPost>(["post", postId]);
+// };

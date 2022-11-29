@@ -1,19 +1,24 @@
-import CommentIcon from "@src/icons/CommentIcon";
-import { IPost, TPost } from "@src/modules/post/post.types";
-import { FC, useRef, useState } from "react";
-import CreateCommentForm from "./CreateCommentForm";
-import Modal from "./Modal";
-import Post from "./Post";
+import CommentIcon from '@src/icons/CommentIcon';
+import { THomePost } from '@src/modules/post/post.types';
+import { FC, useRef, useState } from 'react';
+import CreateCommentForm from './CreateCommentForm';
+import Modal from './Modal';
+import Post from './Post';
 
 interface IProps {
-  post: IPost;
+  post: THomePost;
 }
 
 const CommentButton: FC<IProps> = ({ post }) => {
   const [isOpen, setIsOpen] = useState(false);
+
   const closeModal = () => {
     setIsOpen(false);
   };
+
+  const totalComment = post._count.children;
+
+  const sum = totalComment === 0 ? '' : totalComment;
 
   const composerRef = useRef<HTMLDivElement | null>(null);
   return (
@@ -22,7 +27,7 @@ const CommentButton: FC<IProps> = ({ post }) => {
         <div className="relative flex items-center hover:text-green-500">
           <CommentIcon />
           <span className="pb-1 text-sm absolute top-1/2 -translate-y-1/2 left-6">
-            {post._count.children}
+            {sum}
           </span>
         </div>
         <div className="absolute hidden p-1 text-xs font-light -translate-x-1/2 rounded-lg group-hover:block dark:bg-black left-1/2 bg-slate-300 t">

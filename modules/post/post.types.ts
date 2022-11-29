@@ -5,16 +5,14 @@ export interface IPostCount {
   likes: number;
 }
 
-export type IPost = Post & {
+export type THomePost = Post & {
   author: IAuthor;
   medias: Media[];
-  parent: Post | null;
+  parent: {
+    author: IAuthor
+  } | null
   _count: IPostCount;
   isLiked: boolean
-};
-
-export type THomePost = IPost & {
-  isLiked: boolean;
 };
 
 export type TReply = Post & {
@@ -35,7 +33,7 @@ export type TPost = Post & {
 
 export interface IAuthor {
   name: string;
-  id: number;
+  id: string;
   username: string;
   imageURL: string;
 }
