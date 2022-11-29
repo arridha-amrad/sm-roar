@@ -1,13 +1,17 @@
 import { setPostsCache } from '@src/caches/PostCache';
-import { PostData } from '@src/modules/post/post.types';
+import { IPost } from '@src/modules/post/post.types';
+import queryClient from '@src/utils/queryClient';
 import { useQuery } from '@tanstack/react-query';
-import axios from 'axios';
+import {Me} from "@src/hooks/user/useMe"
+import { axiosInstance } from '@src/utils/axiosInterceptor';
 
 export default function useGetPosts() {
+  const loginUser = queryClient.getQueryData<Me>(['me']);
   const { data, isLoading } = useQuery({
     queryKey: ['posts'],
+    enabled: !!loginUser,
     queryFn: async () => {
-      const { data } = await axios.get<{ posts: PostData[] }>('/api/post/getPosts');
+      const { data } = await axiosInstance.get<{ posts: IPost[] }>('/api/post/getPosts');
       return data.posts;
     },
     onSuccess(data) {

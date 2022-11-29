@@ -11,6 +11,8 @@ import ArrowLeftIcon from '@src/icons/ArrowLeftIcon';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
+import Spinner from '@src/components/shared/Spinner';
+import PostDetails from '@src/components/PostDetails';
 
 const PostDetail = () => {
   const router = useRouter();
@@ -51,15 +53,17 @@ const PostDetail = () => {
               </button>
             }
           />
+
           {isLoading ? (
-            <p>loading...</p>
+            <Spinner />
           ) : (
             <div className="pb-4">
               {data ? (
-                <div>
-                  <Post isWithActionButtons={true} post={data} />
-                  <Replies replies={data.children} />
-                </div>
+                <>
+                  <PostDetails post={data} />
+                  {/* <Post isWithActionButtons={true} post={data} />
+                  <Replies replies={data.children} /> */}
+                </>
               ) : (
                 <p>post not found</p>
               )}

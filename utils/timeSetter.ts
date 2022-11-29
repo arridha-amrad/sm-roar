@@ -1,5 +1,3 @@
-import { PostData } from "@src/modules/post/post.types";
-
 export default function timeSetter(date: string) {
   const oneMinuteMilliSeconds = 1000 * 60;
   const oneHourMilliSeconds = 1000 * 60 * 60;
@@ -27,6 +25,6 @@ export default function timeSetter(date: string) {
       return `${result.toString()}h`;
     }
   } else {
-    return Intl.DateTimeFormat("en-US").format(new Date(date));
+    return Intl.DateTimeFormat('en-US').format(new Date(date));
   }
 }

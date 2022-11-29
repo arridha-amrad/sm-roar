@@ -1,10 +1,15 @@
+import Image from 'next/image';
 import { FC } from 'react';
 
 const Avatar: FC<{ url?: string }> = ({ url = '' }) => {
   return (
-    <div className="w-12 h-12 overflow-hidden rounded-full">
-      <img className="object-cover " src={url === 'default' || '' ? '/default.png' : url} />
-    </div>
+    <Image
+      alt="avatar"
+      width={48}
+      height={48}
+      className="object-cover rounded-full self-start"
+      src={url === 'default' || '' ? '/default.png' : url}
+    />
   );
 };
 

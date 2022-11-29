@@ -1,4 +1,4 @@
-import { TPost } from "@src/modules/post/post.types";
+import { IPost, TPost } from "@src/modules/post/post.types";
 import timeSetter from "@src/utils/timeSetter";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -12,7 +12,7 @@ import RoarrOptionsButton from "./RoarrOptionsButton";
 import ShareButton from "./SharedButton";
 
 interface IProps {
-  post: TPost;
+  post: IPost;
   isWithActionButtons: boolean;
 }
 

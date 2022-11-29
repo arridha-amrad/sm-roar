@@ -1,12 +1,12 @@
 import CommentIcon from "@src/icons/CommentIcon";
-import { TPost } from "@src/modules/post/post.types";
+import { IPost, TPost } from "@src/modules/post/post.types";
 import { FC, useRef, useState } from "react";
 import CreateCommentForm from "./CreateCommentForm";
 import Modal from "./Modal";
 import Post from "./Post";
 
 interface IProps {
-  post: TPost;
+  post: IPost;
 }
 
 const CommentButton: FC<IProps> = ({ post }) => {
@@ -15,17 +15,14 @@ const CommentButton: FC<IProps> = ({ post }) => {
     setIsOpen(false);
   };
 
-  const totalComment =
-    post.children.length !== 0 ? post.children.length.toString() : "";
-
   const composerRef = useRef<HTMLDivElement | null>(null);
   return (
     <>
       <button onClick={(e) => setIsOpen(true)} className="relative group ">
         <div className="relative flex items-center hover:text-green-500">
           <CommentIcon />
-          <span className="pb-1 text-sm absolute -top-[2px] left-6">
-            {totalComment}
+          <span className="pb-1 text-sm absolute top-1/2 -translate-y-1/2 left-6">
+            {post._count.children}
           </span>
         </div>
         <div className="absolute hidden p-1 text-xs font-light -translate-x-1/2 rounded-lg group-hover:block dark:bg-black left-1/2 bg-slate-300 t">

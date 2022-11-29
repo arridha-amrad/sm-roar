@@ -1,19 +1,19 @@
 import useLikePost from "@src/hooks/post/useLikePost";
 import { Me } from "@src/hooks/user/useMe";
 import LoveIcon from "@src/icons/LoveIcon";
-import { TPost } from "@src/modules/post/post.types";
+import { IPost, TPost } from "@src/modules/post/post.types";
 import queryClient from "@src/utils/queryClient";
 import { FC } from "react";
 
 interface IProps {
-  post: TPost;
+  post: IPost;
 }
 
 const LikeButton: FC<IProps> = ({ post }) => {
   const { mutate } = useLikePost();
   const me = queryClient.getQueryData<Me>(["me"]);
 
-  const isLiked = me && post.likes.find((like) => like.userId === me.id);
+  const isLiked = true
 
   const handleLikePost = () => {
     mutate(post.id);
@@ -32,8 +32,8 @@ const LikeButton: FC<IProps> = ({ post }) => {
         }`}
       >
         <LoveIcon isSmall={true} />
-        <span className="absolute text-sm -top-[2px] left-6">
-          {post.likes.length > 0 ? post.likes.length : ""}
+        <span className="absolute text-sm top-0 left-6">
+          {post._count.likes > 0 ? post._count.likes : ""}
         </span>
       </div>
       <div className="absolute hidden p-1 text-xs font-light -translate-x-1/2 rounded-lg group-hover:block dark:bg-black left-1/2 bg-slate-300 t">
