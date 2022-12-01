@@ -39,11 +39,20 @@ const Post: FC<IProps> = ({ post, isWithActionButtons }) => {
               @{post.author.username} <span className="">· {time}</span>
             </span>
           </h1>
-          {post.parent && (
-            <p className="text-sm text-slate-400">
-              Replying to <span className='text-yellow-600'>@{post.parent.author.username}</span>
-            </p>
-          )}
+          <p className="text-sm text-slate-400">
+            Replying to{' '}
+            {post.parents.map((parent, index) => (
+              <span key={parent.author.id} className="text-yellow-600">
+                @{parent.author.username}
+                {post.parents.length > 1 &&
+                index === post.parents.length - 2 ? (
+                  <span className="px-1">&</span>
+                ) : (
+                  <span className="px-1"></span>
+                )}
+              </span>
+            ))}
+          </p>
           <p className="font-light text-sm whitespace-pre">{post.body}</p>
         </div>
         {isWithActionButtons ? (

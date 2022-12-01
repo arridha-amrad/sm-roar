@@ -1,5 +1,11 @@
 import { Post, Like, Media } from '@prisma/client';
 
+export interface TParentHomePost {
+  id: string
+  parentId: string | null
+  author: IAuthor
+}
+
 export interface IPostCount {
   children: number;
   likes: number;
@@ -8,9 +14,7 @@ export interface IPostCount {
 export type THomePost = Post & {
   author: IAuthor;
   medias: Media[];
-  parent: {
-    author: IAuthor
-  } | null
+  parents: TParentHomePost[]
   _count: IPostCount;
   isLiked: boolean
 };

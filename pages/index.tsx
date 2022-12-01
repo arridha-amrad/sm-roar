@@ -1,25 +1,20 @@
-import Head from "next/head";
-import Image from "next/image";
+import Head from 'next/head';
 
-import Posts from "@src/components/home/Posts";
-import CreatePostForm from "@src/components/shared/CreatePostForm";
-import Navbar from "@src/components/shared/Navbar";
-import RecommendedUsers from "@src/components/shared/RecommendedUsers";
-import SearchRoarr from "@src/components/shared/SearchRoarr";
-import TrendingTopics from "@src/components/shared/TrendingTopics";
-import Sidebar from "@src/components/Sidebar/Sidebar";
-import useMe from "@src/hooks/user/useMe";
+import Posts from '@src/components/home/Posts';
+import CreatePostForm from '@src/components/shared/CreatePostForm';
+import Navbar from '@src/components/shared/Navbar';
+import RecommendedUsers from '@src/components/shared/RecommendedUsers';
+import SearchRoarr from '@src/components/shared/SearchRoarr';
+import TrendingTopics from '@src/components/shared/TrendingTopics';
+import Sidebar from '@src/components/Sidebar/Sidebar';
+import useMe from '@src/hooks/user/useMe';
+import LoadingUser from '@src/components/shared/LoadingUser';
 
 export default function Home() {
   const { isLoading } = useMe();
 
   if (isLoading) {
-    return (
-      <div className="relative flex flex-col items-center justify-center w-screen h-screen ">
-        <Image priority src="/logo.png" alt="logo" width={96} height={96} />
-        <p className="relative">Loading...</p>
-      </div>
-    );
+    return <LoadingUser />;
   }
 
   return (
