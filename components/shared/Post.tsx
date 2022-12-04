@@ -1,15 +1,15 @@
-import { THomePost } from '@src/modules/post/post.types';
-import timeSetter from '@src/utils/timeSetter';
-import Link from 'next/link';
-import { useRouter } from 'next/router';
-import { FC } from 'react';
-import Avatar from './Avatar';
-import AnalyticButton from './AnalyticButton';
-import CommentButton from './CommentButton';
-import LikeButton from './LikeButton';
-import ReRoarrButton from './ReRoarrButton';
-import RoarrOptionsButton from './RoarrOptionsButton';
-import ShareButton from './SharedButton';
+import { THomePost } from "@src/modules/post/post.types";
+import timeSetter from "@src/utils/timeSetter";
+import Link from "next/link";
+import { useRouter } from "next/router";
+import { FC } from "react";
+import Avatar from "./Avatar";
+import AnalyticButton from "./AnalyticButton";
+import CommentButton from "./CommentButton";
+import LikeButton from "./LikeButton";
+import ReRoarrButton from "./ReRoarrButton";
+import RoarrOptionsButton from "./RoarrOptionsButton";
+import ShareButton from "./SharedButton";
 
 interface IProps {
   post: THomePost;
@@ -40,20 +40,22 @@ const Post: FC<IProps> = ({ post, isWithActionButtons }) => {
             </span>
           </h1>
           <p className="text-sm text-slate-400">
-            Replying to{' '}
+            Replying to{" "}
             {post.parents.map((parent, index) => (
               <span key={parent.author.id} className="text-yellow-600">
                 @{parent.author.username}
                 {post.parents.length > 1 &&
                 index === post.parents.length - 2 ? (
                   <span className="px-1">&</span>
-                ) : (
+                ) : index + 1 === post.parents.length ? (
                   <span className="px-1"></span>
+                ) : (
+                  <span className="pr-1">,</span>
                 )}
               </span>
             ))}
           </p>
-          <p className="font-light text-sm whitespace-pre">{post.body}</p>
+          <p className="text-sm font-light whitespace-pre">{post.body}</p>
         </div>
         {isWithActionButtons ? (
           <div
@@ -70,7 +72,7 @@ const Post: FC<IProps> = ({ post, isWithActionButtons }) => {
           <div>
             <div className="my-6">
               <p className="text-sm dark:text-slate-600 text-slate-200">
-                Replying to{' '}
+                Replying to{" "}
                 <Link href="/profile" className="text-blue-500 ">
                   @{post.author.username}
                 </Link>

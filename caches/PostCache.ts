@@ -1,11 +1,12 @@
-import { THomePost, TPost } from "@src/modules/post/post.types";
+import { IPostWithParents } from "@src/modules/post/post.types";
 import queryClient from "@src/utils/queryClient";
 
-export const setHomePosts = ({ data }: { data: THomePost[] }) => {
+export const setHomePosts = ({ data }: { data: IPostWithParents[] }) => {
   queryClient.setQueryData(["posts"], data);
 };
 
-export const getHomePosts = () => queryClient.getQueryData<THomePost[]>(["posts"]);
+export const getHomePosts = () =>
+  queryClient.getQueryData<IPostWithParents[]>(["posts"]);
 
 // export const setPostDetail = ({
 //   postId,

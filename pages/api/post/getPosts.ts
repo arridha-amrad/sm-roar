@@ -1,19 +1,23 @@
-import { NextApiRequest, NextApiResponse } from 'next';
-import prisma from '@src/utils/prismaInstance';
-import { QUERY_AUTHOR_DATA } from '@src/modules/post/post.constants';
-import { verifyToken } from '@src/utils/token';
-import { TParentHomePost } from '@src/modules/post/post.types';
+import { NextApiRequest, NextApiResponse } from "next";
+import prisma from "@src/utils/prismaInstance";
+import { QUERY_AUTHOR_DATA } from "@src/modules/post/post.constants";
+import { verifyToken } from "@src/utils/token";
+import {
+  IPost,
+  IPostWithParents,
+  TParentHomePost,
+} from "@src/modules/post/post.types";
 
 export default async function (req: NextApiRequest, res: NextApiResponse) {
   try {
     const token = req.headers.authorization;
     if (!token) {
-      throw new Error('UnAuthorized');
+      throw new Error("UnAuthorized");
     }
-    const { userId } = await verifyToken(token.split(' ')[1], 'auth');
+    const { userId } = await verifyToken(token.split(" ")[1], "auth");
     const posts = await prisma.post.findMany({
       orderBy: {
-        createdAt: 'desc',
+        createdAt: "desc",
       },
       include: {
         _count: {
@@ -31,10 +35,10 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
     const myPosts = [] as typeof posts &
       { isLiked: boolean; parents: TParentHomePost }[];
     for (const post of posts) {
-      let currentPost = {
+      let currentPost: IPostWithParents = {
         ...post,
         isLiked: false,
-        parents: [] as TParentHomePost[],
+        parents: [],
       };
       const isLiked = await prisma.like.findFirst({
         where: {
@@ -46,12 +50,17 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
       const setParent = async (postId: string): Promise<void> => {
         const post = await prisma.post.findFirst({
           where: { id: postId },
-          select: {
-            id: true,
-            parentId: true,
+          include: {
+            _count: {
+              select: {
+                children: true,
+                likes: true,
+              },
+            },
             author: {
               select: QUERY_AUTHOR_DATA,
             },
+            medias: true,
           },
         });
         if (!post) return;
@@ -59,7 +68,13 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
           (parent) => parent.author.id === post.author.id
         );
         if (index < 0) {
-          currentPost.parents.push(post);
+          const isLiked = await prisma.like.findFirst({
+            where: {
+              userId,
+              postId: post.id,
+            },
+          });
+          currentPost.parents.push({ ...post, isLiked: !!isLiked });
         }
         if (post.parentId === null) return;
         return setParent(post.parentId);
@@ -72,7 +87,7 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
     }
     return res.status(200).json({ posts: myPosts });
   } catch (error) {
-    return res.status(500).send('Server Error');
+    return res.status(500).send("Server Error");
   } finally {
     await prisma.$disconnect();
   }

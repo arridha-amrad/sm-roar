@@ -1,9 +1,20 @@
-import { Post, Like, Media } from '@prisma/client';
+import { Post, Like, Media } from "@prisma/client";
+
+export type IPost = Post & {
+  author: IAuthor;
+  medias: Media[];
+  _count: IPostCount;
+  isLiked: boolean;
+};
+
+export type IPostWithParents = IPost & {
+  parents: IPost[];
+};
 
 export interface TParentHomePost {
-  id: string
-  parentId: string | null
-  author: IAuthor
+  id: string;
+  parentId: string | null;
+  author: IAuthor;
 }
 
 export interface IPostCount {
@@ -14,9 +25,9 @@ export interface IPostCount {
 export type THomePost = Post & {
   author: IAuthor;
   medias: Media[];
-  parents: TParentHomePost[]
+  parents: TParentHomePost[];
   _count: IPostCount;
-  isLiked: boolean
+  isLiked: boolean;
 };
 
 export type TReply = Post & {
@@ -33,6 +44,10 @@ export type TReplies = Post & {
 
 export type TPost = Post & {
   author: IAuthor;
+  medias: Media[];
+  children: Post[];
+  likes: Like[];
+  parent: Post | null;
 };
 
 export interface IAuthor {

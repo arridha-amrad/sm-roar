@@ -1,7 +1,7 @@
-import { getHomePosts, setHomePosts } from '@src/caches/PostCache';
-import { TPost } from '@src/modules/post/post.types';
-import { axiosInstance } from '@src/utils/axiosInterceptor';
-import { useMutation } from '@tanstack/react-query';
+import { getHomePosts, setHomePosts } from "@src/caches/PostCache";
+import { IPost, IPostWithParents } from "@src/modules/post/post.types";
+import { axiosInstance } from "@src/utils/axiosInterceptor";
+import { useMutation } from "@tanstack/react-query";
 
 export interface ICreateCommentDTO {
   body: string;
@@ -11,8 +11,8 @@ export interface ICreateCommentDTO {
 export default function useCreateComment() {
   const { mutate, isLoading, isSuccess } = useMutation({
     mutationFn: async (object: ICreateCommentDTO) => {
-      const { data } = await axiosInstance.post<{ reply: TPost }>(
-        '/api/post/createReply',
+      const { data } = await axiosInstance.post<{ reply: IPostWithParents }>(
+        "/api/post/createReply",
         object
       );
       return data.reply;
@@ -30,7 +30,22 @@ export default function useCreateComment() {
       if (posts) {
         const index = posts.findIndex((post) => post.id === postId);
         posts[index]._count.children += 1;
-        setHomePosts({ data: posts });
+        const parents: IPost[] = [];
+        data.parents.map((post) => {
+          const parent = parents.find((p) => p.author.id === post.author.id);
+          if (!parent) {
+            parents.push(post);
+          }
+          return;
+        });
+        const postsCache = [
+          {
+            ...data,
+            parents,
+          },
+          ...posts,
+        ];
+        setHomePosts({ data: postsCache });
       }
     },
   });
