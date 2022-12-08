@@ -1,8 +1,8 @@
-import fs from 'fs';
-import jwt from 'jsonwebtoken';
-import path from 'path';
+import fs from "fs";
+import jwt from "jsonwebtoken";
+import path from "path";
 
-export type TokenTypes = 'link' | 'auth' | 'refresh';
+export type TokenTypes = "link" | "auth" | "refresh";
 
 export interface IVerifyTokenPayload {
   userId: string;
@@ -12,10 +12,10 @@ export interface IVerifyTokenPayload {
 }
 
 const privateKey = fs.readFileSync(
-  path.join(process.cwd(), './keys/private.pem')
+  path.join(process.cwd(), "./keys/private.pem")
 );
 const publicKey = fs.readFileSync(
-  path.join(process.cwd(), './keys/public.pem')
+  path.join(process.cwd(), "./keys/public.pem")
 );
 
 export const createToken = async (
@@ -27,8 +27,8 @@ export const createToken = async (
       { userId, type },
       privateKey,
       {
-        algorithm: 'RS256',
-        expiresIn: type === 'link' ? '1d' : type === 'auth' ? '2h' : '1d',
+        algorithm: "RS256",
+        expiresIn: type === "link" ? "1d" : type === "auth" ? "5s" : "1d",
       },
       (err, token) => {
         if (err !== null) {
@@ -50,12 +50,16 @@ export const verifyToken = async (
       token,
       publicKey,
       {
-        algorithms: ['RS256'],
-        maxAge: type === 'link' ? '1d' : type === 'auth' ? '2h' : '1d',
+        algorithms: ["RS256"],
+        maxAge: type === "link" ? "1d" : type === "auth" ? "5s" : "1d",
       },
       (err, payload) => {
         if (err !== null) {
-          reject(new Error(err.message));
+          reject(
+            new Error(err.message, {
+              cause: err.message,
+            })
+          );
         }
         const data = payload as IVerifyTokenPayload;
         resolve(data);

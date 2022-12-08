@@ -13,6 +13,7 @@ export const axiosInstance = axios.create({
 axiosInstance.interceptors.request.use(
   (config: AxiosRequestConfig) => {
     config.headers!["Content-Type"] = "application/json";
+    config.headers!.authorization = getToken();
     return config;
   },
   (error) => {
@@ -31,15 +32,15 @@ axiosInstance.interceptors.response.use(
       return axiosInstance
         .get<{ token: string }>("/api/user/refreshToken")
         .then(({ data }) => {
-          axiosInstance.defaults.headers.authorization = data.token;
+          setToken(data.token);
           prevRequest.headers["Authorization"] = data.token;
           return axiosInstance(prevRequest);
         })
         .catch((err) => {
-          if (err.response.status === 403 || err.response.status === 500) {
-            window.location.replace("/login");
-            return;
-          }
+          // if (err.response.status === 403 || err.response.status === 500) {
+          //   window.location.replace("/login");
+          //   return;
+          // }
           return Promise.reject(err);
         });
     }

@@ -1,4 +1,4 @@
-import { THomePost } from "@src/modules/post/post.types";
+import { IPostWithParents } from "@src/modules/post/post.types";
 import timeSetter from "@src/utils/timeSetter";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -12,7 +12,7 @@ import RoarrOptionsButton from "./RoarrOptionsButton";
 import ShareButton from "./SharedButton";
 
 interface IProps {
-  post: THomePost;
+  post: IPostWithParents;
   isWithActionButtons: boolean;
 }
 
@@ -24,6 +24,11 @@ const Post: FC<IProps> = ({ post, isWithActionButtons }) => {
   const navigate = () => {
     router.push(`/${post.author.username}/status/${post.id}`);
   };
+
+  const parents = post.parents.filter(
+    (post, index, array) =>
+      index === array.findIndex((p) => p.author.id === post.author.id)
+  );
 
   return (
     <div
@@ -39,22 +44,26 @@ const Post: FC<IProps> = ({ post, isWithActionButtons }) => {
               @{post.author.username} <span className="">· {time}</span>
             </span>
           </h1>
-          <p className="text-sm text-slate-400">
-            Replying to{" "}
-            {post.parents.map((parent, index) => (
-              <span key={parent.author.id} className="text-yellow-600">
-                @{parent.author.username}
-                {post.parents.length > 1 &&
-                index === post.parents.length - 2 ? (
-                  <span className="px-1">&</span>
-                ) : index + 1 === post.parents.length ? (
-                  <span className="px-1"></span>
-                ) : (
-                  <span className="pr-1">,</span>
-                )}
-              </span>
-            ))}
-          </p>
+
+          {post.parents.length > 0 && (
+            <div className="flex flex-wrap text-sm text-slate-400">
+              Replying to <span className="pr-1" />
+              {parents.map((parent, index) => (
+                <div key={parent.author.id} className="text-yellow-600">
+                  @{parent.author.username}
+                  {post.parents.length > 1 &&
+                  index === post.parents.length - 2 ? (
+                    <span className="px-1">&</span>
+                  ) : index + 1 === post.parents.length ? (
+                    <span className="px-1"></span>
+                  ) : (
+                    <span className="pr-1">,</span>
+                  )}
+                </div>
+              ))}
+            </div>
+          )}
+
           <p className="text-sm font-light whitespace-pre">{post.body}</p>
         </div>
         {isWithActionButtons ? (
